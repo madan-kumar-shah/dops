@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<!--[if lt IE 7]>      <html lang="en" ng-app="myApp" class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
+<!--[if IE 7]>         <html lang="en" ng-app="myApp" class="no-js lt-ie9 lt-ie8"> <![endif]-->
+<!--[if IE 8]>         <html lang="en" ng-app="myApp" class="no-js lt-ie9"> <![endif]-->
+<!--[if gt IE 8]><!-->
+<html lang="en" ng-app="myApp" class="no-js">
+<!--<![endif]-->
+
+<head>  
+  <meta charset="UTF-8">
+  <!-- <meta name="viewport" content="initial-scale=1, width=device-width"> -->
+  <title>DOPs</title>
+  <meta name="description" content="" />
+  <link rel="stylesheet" href="bower_components/html5-boilerplate/dist/css/normalize.css" />
+  <link rel="stylesheet" href="bower_components/html5-boilerplate/dist/css/main.css" />
+  <link rel="stylesheet" href="app.css" />
+  <link rel="stylesheet" href="css/pikaday.css" />
+  <link rel="stylesheet" href="commonFilters/dmCommonStyle.css" />
+  <link rel="stylesheet" href="login/login.css" />
+  <link rel="stylesheet" href="login1/login1.css" />
+  <link rel="stylesheet" href="home/homeNew.css" />
+  <link rel="stylesheet" href="leadScrutiny/leadScrutiny.css" />
+  <link rel="stylesheet" href="queues/queues.css" />
+  <link rel="stylesheet" href="queueData/queueData.css" />
+  <link rel="stylesheet" href="ScrutinyForm/ScrutinyForm.css" />
+  <link rel="stylesheet" href="IndividualForm/IndividualForm.css" />
+  <link rel="stylesheet" href="CompanyForm/CompanyForm.css" />
+  <link rel="stylesheet" href="cardView/cardView.css" />
+
+  <link rel="stylesheet" href="PhyScrutinyForm/PhyScrutinyForm.css" />
+  <link rel="stylesheet" href="PhyHUFScrutinyForm/PhyHUFScrutinyForm.css" />
+
+  <link rel="stylesheet" href="PhyIndividualForm/PhyIndividualForm.css" />
+
+   <link rel="stylesheet" href="PhyHUFIndividualForm/PhyHUFIndividualForm.css" />
+
+  <link rel="stylesheet" href="PhyCompanyForm/PhyCompanyForm.css" />
+  <link rel="stylesheet" href="PhyLLPForm/PhyLLPForm.css" />
+  
+  <link rel="stylesheet" href="PartnershipForm/PartnershipForm.css" />
+  <link rel="stylesheet" href="PhyTASCForm/PhyTASCForm.css" />
+  <!-- <link rel="stylesheet" href="PhyHUFIndividualForm/PhyHUFIndividualForm.css" /> -->
+
+  <link rel="stylesheet" href="ions/Ionicons/css/ionicons.min.css" />
+  <link rel="stylesheet" type="text/css" href="css/font-awesome.min.css" />
+  <link rel="shortcut icon" href="images/logo_yes_aim_ca_1.png" />
+  <meta name="viewport" content="initial-scale=1.0,minimum-scale=1.0,maximum-scale=1.0,width=device-width,user-scalable=no" />
+
+  <script type="application/javascript"  src="common/service/apiGateway.js"></script>
+  <script type="application/javascript"  src="bower_components/html5-boilerplate/dist/js/vendor/modernizr-2.8.3.min.js"></script>
+</head>
+
+<body ng-controller="initApp">
+  <!--[if lt IE 7]>
+      <p class="browsehappy">
+        You are using an <strong>outdated</strong> browser. Please
+        <a href="http://browsehappy.com/">upgrade your browser</a> to improve
+        your experience.
+      </p>
+    <![endif]-->
+  <dm-dialogue dm-theme="FF0000"></dm-dialogue>
+  <div ng-view ng-style="RouteData.get('bodyStyle')"></div>
+  <footer class="footer-display">
+    <label ng-show="lastLogin.timeStamp.length">{{lastLogin.timeStamp}}</label>
+    <versionNumber app-version></versionNumber>
+    <!--    <versionNumber>ver: P1.67</versionNumber>-->
+  </footer>
+  <!-- In production use:
+    <script src="//ajax.googleapis.com/ajax/libs/angularjs/x.x.x/angular.min.js"></script>
+    -->
+  <script type="application/javascript"  src="bower_components/angular/angular.js"></script>
+  <script type="application/javascript"  src="js/angular-sanitize.min.js"></script>
+  <!-- <script type="application/javascript"  src="js/alasql.min.js"></script> -->
+  <script type="application/javascript"  src="js/xlsx.core.min.js"></script>
+  <script type="application/javascript"  src="js/ng-csv.js"></script>
+  <script type="application/javascript"  src="bower_components/angular-route/angular-route.js"></script>
+  <script type="application/javascript"  src="js/route-data.js"></script>
+  <script type="application/javascript"  src="js/jsonpath.js"></script>
+  <script type="application/javascript"  src="js/moment.min.js"></script>
+  <script type="application/javascript"  src="js/pikaday.js"></script>
+  <script type="application/javascript"  src="js/pikaday-angular.js"></script>
+  <script type="application/javascript"  src="app.js"></script>
+  <script type="application/javascript"  src="commonFilters/commonFilters.js"></script>
+  <script type="application/javascript"  src="login/login.js"></script>
+  <script type="application/javascript"  src="login1/login1.js"></script>
+  <script type="application/javascript"  src="home/home.js"></script>
+  <script type="application/javascript"  src="leadScrutiny/leadScrutiny.js"></script>
+  <script type="application/javascript"  src="leadScrutiny/documentModule.js"></script>
+  <script type="application/javascript"  src="queues/queues.js"></script>
+  <script type="application/javascript"  src="queueData/queueData.js"></script>
+  <script type="application/javascript"  src="ScrutinyForm/ScrutinyForm.js"></script>
+  <script type="application/javascript"  src="IndividualForm/IndividualForm.js"></script>
+  <script type="application/javascript"  src="CompanyForm/CompanyForm.js"></script>
+  <script type="application/javascript"  src="CompanyForm/documentsImages.js"></script>
+  <script type="application/javascript"  src="cardView/cardView.js"></script>
+
+  <script type="application/javascript" src="PhyScrutinyForm/PhyScrutinyForm.js"></script>
+  <script type="application/javascript" src="PhyIndividualForm/PhyIndividualForm.js"></script>
+  <script type="application/javascript" src="PhyHUFIndividualForm/PhyHUFIndividualForm.js"></script>
+  <script type="application/javascript" src="PhyHUFScrutinyForm/PhyHUFScrutinyForm.js"></script>
+  <script type="application/javascript" src="PhyCompanyForm/PhyCompanyForm.js"></script>
+  <script type="application/javascript" src="PartnershipForm/PartnershipForm.js"></script>
+  <script type="application/javascript" src="PhyTASCForm/PhyTASCForm.js"></script>
+  <script type="application/javascript" src="PhyLLPForm/PhyLLPForm.js"></script>
+
+  <script type="application/javascript"  src="PhyCompanyForm/documentsImages.js"></script>
+  <script type="application/javascript"  src="PhyLLPForm/documentsImages.js"></script>
+  <script type="application/javascript"  src="PartnershipForm/documentsImages.js"></script>
+  <script type="application/javascript"  src="PhyTASCForm/documentsImages.js"></script>
+
+
+  <!-- <script type="application/javascript"  src="PlatwareClient/PlatwareClient.js"></script>
+    <script type="application/javascript"  src="PlatwareClient/PlatwareAES.js"></script> -->
+  <script type="application/javascript"  src="common/service/service.js"></script>
+  <!-- <script type="application/javascript"  src="js/aes.js"></script> -->
+  <!-- <script type="application/javascript"  src="js/pbkdf2.js"></script> -->
+  <script type="application/javascript"  src="components/version/version.js"></script>
+  <script type="application/javascript"  src="js/fingerprint.js"></script>
+  <script type="application/javascript"  src="components/version/version-directive.js"></script>
+  <script type="application/javascript"  src="components/version/interpolate-filter.js"></script>
+  <!-- Imports by Abhinav -->
+  <!-- <script type="application/javascript"  type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.13.5/xlsx.full.min.js"></script> -->
+  <!-- <script type="application/javascript"  type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.13.5/jszip.js"></script> -->
+  <!-- <script type="application/javascript"  src="https://rawgithub.com/eligrey/FileSaver.js/master/FileSaver.js" type="text/javascript"></script> -->
+  <!-- <script type="application/javascript"  src="https://rawgit.com/michaelbromley/angularUtils-pagination/master/dirPagination.js"></script> -->
+  <!-- <script type="application/javascript"  src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.16.2/xlsx.full.min.js"></script> -->
+  <!-- <script type="application/javascript"  src="filesaver.js"></script> -->
+  <script type="application/javascript"  src="js/xlsx.full.min.js"></script>
+  <!-- Imports by Abhinav -->
+  <script type="application/javascript"  data-require="ui-bootstrap" src="js/ui-bootstrap-tpls.min.js" data-semver="0.13.0"></script>
+  <!-- <script type="application/javascript"  src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.2.2/jszip.js"></script> -->
+  <script type="application/javascript"  src="js/jszip.js"></script>
+  <!-- <script type="application/javascript"  src="https://unpkg.com/xlsx/dist/xlsx.full.min.js"></script> -->
+  <script type="application/javascript"  src="js/xlsx.full.min-unpkg.js"></script>
+  <!-- <script type="application/javascript"  src="PlatwareClient_latest/AESEncryption/PlatwareAES.js"></script> -->
+  <!-- <script type="application/javascript"  src="PlatwareClient_latest/crypto-js/cryptico.js"></script> -->
+  <!-- <script type="application/javascript"  src="PlatwareClient_latest/index.js"></script>
+    <script type="application/javascript"  src="PlatwareClient_latest/jsencrypt.js"></script>
+    <script type="application/javascript"  src="PlatwareClient_latest/pwCore.js"></script>
+    <script type="application/javascript"  src="PlatwareClient_latest/pwCrypto.js"></script>
+   <script type="application/javascript"  src="PlatwareClient_latest/pwDateParsing.js"></script>
+   <script type="application/javascript"  src="PlatwareClient_latest/pwDefaultProps.js"></script>
+   <script type="application/javascript"  src="PlatwareClient_latest/pwPostRequest.js"></script>
+   <script type="application/javascript"  src="PlatwareClient_latest/pwRequest.js"></script>
+   <script type="application/javascript"  src="PlatwareClient_latest/pwService.js"></script> -->
+  <script type="application/javascript"  src="PlatwareClient_latest/jsencrypt.js"></script>
+  <script type="application/javascript"  src="PlatwareClient_latest/pwCore.js"></script>
+  <script type="application/javascript"  src="PlatwareClient_latest/pwCrypto.js"></script>
+  <script type="application/javascript"  src="PlatwareClient_latest/pwDateParsing.js"></script>
+  <script type="application/javascript"  src="PlatwareClient_latest/pwDefaultProps.js"></script>
+  <script type="application/javascript"  src="PlatwareClient_latest/pwRequest.js"></script>
+  <script type="application/javascript"  src="PlatwareClient_latest/pwService.js"></script>
+  <script type="application/javascript"  src="PlatwareClient_latest/pwPostRequest.js"></script>
+  <script type="application/javascript"  src="PlatwareClient_latest/index.js"></script>
+  <script type="application/javascript"  src="js/FileSaver.js"></script>
+  <script type="application/javascript"  src="js/html2pdf.bundle.min.js"></script>
+  <script type="application/javascript"  src="pdf/jspdf.js"></script>
+  <!-- <script src="https://rawgit.com/eKoopmans/html2pdf/master/dist/html2pdf.bundle.min.js"></script> -->
+  <!--Nicky -->
+  <!-- In production use:
+    <script src="//ajax.googleapis.com/ajax/libs/angularjs/x.x.x/angular.min.js"></script>
+    -->
+  <!--    <script src="bower_components/angular/angular.js"></script>
+        <script src="bower_components/angular-route/angular-route.js"></script>
+        <script src="js/route-data.js"></script>
+        <script src="app.js"></script>
+        <script src="commonFilters/commonFilters.js"></script>
+        <script src="login/login.js"></script>
+        <script src="home/home.js"></script>
+        <script src="leadScrutiny/leadScrutiny.js"></script>
+        <script src="components/version/version.js"></script>
+        <script src="components/version/version-directive.js"></script>
+        <script src="components/version/interpolate-filter.js"></script>-->
+</body>
+
+</html>
