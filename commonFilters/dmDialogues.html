@@ -1,0 +1,453 @@
+<style>
+    .dmTransition{
+        transition:all 0.5s ease-in-out;
+        -webkit-transition:all 0.5s ease-in-out;
+        -moz-transition:all 0.5s ease-in-out;
+        -ms-transition:all 0.5s ease-in-out;
+    }
+    .dmAnimated{
+        -webkit-animation-duration: 0.5s;
+        -moz-animation-duration: 0.5s;
+        -o-animation-duration: 0.5s;
+        animation-duration: 0.5s;
+        -webkit-animation-fill-mode: both;
+        -moz-animation-fill-mode: both;
+        -o-animation-fill-mode: both;
+        animation-fill-mode: both;
+    }
+    .dmToastAnimated{
+        -webkit-animation-duration: 0.4s;
+        -moz-animation-duration: 0.4s;
+        -ms-animation-duration: 0.4s;
+        animation-duration: 0.4s;
+        -webkit-animation-fill-mode: both;
+        -moz-animation-fill-mode: both;
+        -ms-animation-fill-mode: both;
+        animation-fill-mode: both;
+        -webkit-animation-timing-function:ease-out;
+        -moz-animation-timing-function:ease-out;
+        -ms-animation-timing-function:ease-out;
+        animation-timing-function:ease-out;
+    }
+    .dmAnimated.delay {
+        -webkit-animation-delay: 0.3s;
+        -moz-animation-delay: 0.3s;
+        -o-animation-delay: 0.3s;
+        animation-delay: 0.3s;
+    }
+    .dmAnimated.fadeIn {
+        -webkit-animation-name: fadeIn;
+        -moz-animation-name: fadeIn;
+        -o-animation-name: fadeIn;
+        animation-name: fadeIn;
+    }
+    .dmAnimated.scaleIn{
+        -webkit-animation-name: scaleIn;
+        -moz-animation-name: scaleIn;
+        -o-animation-name: scaleIn;
+        animation-name: scaleIn;
+    }
+    .dmAnimated.scaleOut{
+        -webkit-animation-name: scaleOut;
+        -moz-animation-name: scaleOut;
+        -o-animation-name: scaleOut;
+        animation-name: scaleOut;
+    }
+    .fadeInUp {
+        -webkit-animation-name: fadeInUp;
+        -moz-animation-name: fadeInUp;
+        -o-animation-name: fadeInUp;
+        animation-name: fadeInUp;
+    }
+    @-webkit-keyframes fadeIn {
+        0% {opacity: 0;}
+        100% {opacity: 1;}
+    }
+
+    @-moz-keyframes fadeIn {
+        0% {opacity: 0;}
+        100% {opacity: 1;}
+    }
+
+    @-o-keyframes fadeIn {
+        0% {opacity: 0;}
+        100% {opacity: 1;}
+    }
+
+    @keyframes fadeIn {
+        0% {opacity: 0;}
+        100% {opacity: 1;}
+    }
+    @-webkit-keyframes scaleIn {
+        0% {transform:         scale(0); /* CSS3 */
+            -moz-transform:    scale(0); /* Firefox */
+            -webkit-transform: scale(0); /* Webkit */
+            -o-transform:      scale(0); /* Opera */
+            -ms-transform:     scale(0); /* IE 9 */}
+        100% {transform:         scale(1); /* CSS3 */
+              -moz-transform:    scale(1); /* Firefox */
+              -webkit-transform: scale(1); /* Webkit */
+              -o-transform:      scale(1); /* Opera */
+              -ms-transform:     scale(1); /* IE 9 */}
+    }
+
+    @-moz-keyframes scaleIn {
+        0% {transform:         scale(0); /* CSS3 */
+            -moz-transform:    scale(0); /* Firefox */
+            -webkit-transform: scale(0); /* Webkit */
+            -o-transform:      scale(0); /* Opera */
+            -ms-transform:     scale(0); /* IE 9 */}
+        100% {transform:         scale(1); /* CSS3 */
+              -moz-transform:    scale(1); /* Firefox */
+              -webkit-transform: scale(1); /* Webkit */
+              -o-transform:      scale(1); /* Opera */
+              -ms-transform:     scale(1); /* IE 9 */}
+    }
+
+    @-o-keyframes scaleIn {
+        0% {transform:         scale(0); /* CSS3 */
+            -moz-transform:    scale(0); /* Firefox */
+            -webkit-transform: scale(0); /* Webkit */
+            -o-transform:      scale(0); /* Opera */
+            -ms-transform:     scale(0); /* IE 9 */}
+        100% {transform:         scale(1); /* CSS3 */
+              -moz-transform:    scale(1); /* Firefox */
+              -webkit-transform: scale(1); /* Webkit */
+              -o-transform:      scale(1); /* Opera */
+              -ms-transform:     scale(1); /* IE 9 */}
+    }
+
+    @keyframes scaleIn {
+        0% {transform:         scale(0); /* CSS3 */
+            -moz-transform:    scale(0); /* Firefox */
+            -webkit-transform: scale(0); /* Webkit */
+            -o-transform:      scale(0); /* Opera */
+            -ms-transform:     scale(0); /* IE 9 */}
+        100% {transform:         scale(1); /* CSS3 */
+              -moz-transform:    scale(1); /* Firefox */
+              -webkit-transform: scale(1); /* Webkit */
+              -o-transform:      scale(1); /* Opera */
+              -ms-transform:     scale(1); /* IE 9 */}
+    }
+    @-webkit-keyframes scaleOut {
+        0% {transform:         scale(1); /* CSS3 */
+            -moz-transform:    scale(1); /* Firefox */
+            -webkit-transform: scale(1); /* Webkit */
+            -o-transform:      scale(1); /* Opera */
+            -ms-transform:     scale(1); /* IE 9 */
+        }
+        100% {transform:         scale(0); /* CSS3 */
+              -moz-transform:    scale(0); /* Firefox */
+              -webkit-transform: scale(0); /* Webkit */
+              -o-transform:      scale(0); /* Opera */
+              -ms-transform:     scale(0); /* IE 9 */}
+    }
+
+    @-moz-keyframes scaleOut {
+        0% {transform:         scale(1); /* CSS3 */
+            -moz-transform:    scale(1); /* Firefox */
+            -webkit-transform: scale(1); /* Webkit */
+            -o-transform:      scale(1); /* Opera */
+            -ms-transform:     scale(1); /* IE 9 */
+        }
+        100% {transform:         scale(0); /* CSS3 */
+              -moz-transform:    scale(0); /* Firefox */
+              -webkit-transform: scale(0); /* Webkit */
+              -o-transform:      scale(0); /* Opera */
+              -ms-transform:     scale(0); /* IE 9 */}
+    }
+
+    @-o-keyframes scaleOut {
+        0% {transform:         scale(1); /* CSS3 */
+            -moz-transform:    scale(1); /* Firefox */
+            -webkit-transform: scale(1); /* Webkit */
+            -o-transform:      scale(1); /* Opera */
+            -ms-transform:     scale(1); /* IE 9 */
+        }
+        100% {transform:         scale(0); /* CSS3 */
+              -moz-transform:    scale(0); /* Firefox */
+              -webkit-transform: scale(0); /* Webkit */
+              -o-transform:      scale(0); /* Opera */
+              -ms-transform:     scale(0); /* IE 9 */}
+    }
+
+    @keyframes scaleOut {
+        0% {transform:         scale(1); /* CSS3 */
+            -moz-transform:    scale(1); /* Firefox */
+            -webkit-transform: scale(1); /* Webkit */
+            -o-transform:      scale(1); /* Opera */
+            -ms-transform:     scale(1); /* IE 9 */
+        }
+        100% {transform:         scale(0); /* CSS3 */
+              -moz-transform:    scale(0); /* Firefox */
+              -webkit-transform: scale(0); /* Webkit */
+              -o-transform:      scale(0); /* Opera */
+              -ms-transform:     scale(0); /* IE 9 */}
+    }
+    @-webkit-keyframes fadeInUp {
+        0% {
+            opacity: 0;
+            -webkit-transform: translateY(40px);
+        }
+
+        100% {
+            opacity: 1;
+            -webkit-transform: translateY(0);
+        }
+    }
+
+    @-moz-keyframes fadeInUp {
+        0% {
+            opacity: 0;
+            -moz-transform: translateY(40px);
+        }
+        100% {
+            opacity: 1;
+            -moz-transform: translateY(0);
+        }
+    }
+
+    @-o-keyframes fadeInUp {
+        0% {
+            opacity: 0;
+            -o-transform: translateY(40px);
+        }
+
+        100% {
+            opacity: 1;
+            -o-transform: translateY(0);
+        }
+    }
+
+    @keyframes fadeInUp {
+        0% {
+            opacity: 0;
+            transform: translateY(40px);
+        }
+        100% {
+
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
+    dmDialogueContainer{
+        display: block;
+        position: fixed;
+        background-color: rgba(0,0,0,0.25);
+        width: 100vw;
+        height: 100vh;
+        z-index: 3000;
+        top:0;
+    }
+    dmDialogue{
+        display: block;
+        background-color: #ffffff;
+        width: 28%;
+        height: 26%;
+        margin: auto;
+        margin-top: 13%;
+        border:2px solid transparent;
+        border-radius: 6px;
+        box-shadow: 0px 2px 3px grey;
+        overflow: hidden;
+    }
+    dmDialogueHeader{
+        display: block;
+        height: 22%;
+        background-color: #f6f6f6;
+        /* box-shadow: 0px 1px 5px #d2d2d2; */
+        text-align: center;
+    }
+    dmDialogueHeaderTitle,
+    dmDialogueClose{
+        display: inline-block;
+        height: 100%;
+        text-align: right;
+        vertical-align: top;
+    }
+    dmDialogueClose>span{
+        display: inline-block;
+        cursor: pointer;
+        font-size: 1.8em;
+        color: #A9A9A9;
+    }
+    dmDialogueClose>span:hover{
+        color: #717171;
+    }
+    dmDialogueHeaderTitle{
+        width: 79%;
+        text-align: left;
+    }
+    dmDialogueHeaderTitle>label{
+        display: inline-block;
+        margin: 10px 8px;
+        font-size: 1.1em;
+        font-weight: bold;
+        color: #716262;
+    }
+    dmDialogueClose{
+        width: 18%;
+    }
+    dmDialogueBody{
+        display: block;
+        height: 50%;
+        overflow: auto;
+        /*border-bottom: 1px solid #d2d2d2;*/
+    }
+    dmDialogueBody>p{
+        color: #716262;
+        margin: 8px 14px;
+        font-size: 15px;
+        padding:16px;
+    }
+    dmDialogueActions{
+        display: block;
+        width: 100%;
+        height: 21%;
+        padding: 2% 0;
+        text-align: right;
+    }
+    dmDialogueActions>button{
+        padding: 0 2%;
+        min-width: 20%;
+        height: 30px;
+        display: inline-block;
+        margin: 0 3%;
+        outline: none;
+        border-radius: 3px;
+        border: 1px solid #CECECE;
+        background-color: #F5F5F5;
+    }
+    dmDialogueActions>button:hover{
+        background-color: #e6e6e6;
+    }
+    dmDialogueActions>ul{
+        margin: 0px;
+        padding: 0px;
+        list-style: none;
+        width: 100%;
+        height: 100%;
+        text-align: center;
+    }
+    dmDialogueActions>ul>li{
+        display: inline-block;
+        height: 100%;
+        cursor: pointer;
+        width:100%;
+    }
+    dmDialogueActions>ul>li>button{
+        border: none;
+        outline: none;
+        height:100%;
+        display: block;
+    }
+    dmToast{
+        display: block;
+        position: fixed;
+        bottom: 12%;
+        margin: auto;
+        width: 30%;
+        left:55%;
+        margin-left: -20%;
+        min-height: 7vh;
+        background: #ffffff;
+        /*//left: 50%;*/
+        border:1px solid #e6e6e6;
+        box-shadow: 1px 1px 5px #e6e6e6;
+        border-radius: 2px;
+        z-index: 3000;
+        /*        box-shadow: 0px 2px 3px #1B1B1B;*/
+        /*        transform: translateX(-50%);
+                -webkit-transform: translateX(-50%);
+                -moz-transform: translateX(-50%);
+                -ms-transform: translateX(-50%);
+                -o-transform:translateX(-50%);*/
+    }
+    dmToast dmToastMessage{
+        display: inline-block;
+        width: 85%;
+        margin: 3%;
+        word-break: word-wrap;
+    }
+    dmToast dmToastClose{
+        display: inline-block;
+        width: 7%;
+        color: #6D6D6D;
+        text-align: center;
+        font-size: 1.5em;
+        vertical-align: top;
+        cursor: pointer;
+    }
+    dmToast dmToastClose:hover{
+        color: #666666;
+    }
+    dmToast dmToastClose>span{
+        display: inline-block;
+        margin: 13% 2%;
+    }
+
+    @media only screen and (max-width: 767px){
+        dmDialogue {
+            width: 100%;
+            margin:16px;
+        }
+        dmDialogueContainer{
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        dmDialogueBody>p{
+            margin:0 !important;
+            padding:16px;
+        }
+    }
+</style>
+<meta charset="utf-8"/>
+<dmDialogueContainer ng-if="dialogueCtrls.isShown && (dialogueCtrls.type.toLowerCase() == 'alert' || dialogueCtrls.type.toLowerCase() == 'confirm')" 
+                     class="dmAnimated"
+                     ng-class="dialogueCtrls.isShown ? 'fadeIn' : 'fadeOut'">
+    <dmDialogue class="dmAnimated "
+                ng-class="dialogueCtrls.isShown ? 'scaleIn' : 'scaleOut'">
+        <dmDialogueHeader>
+            <dmDialogueHeaderTitle>
+                <label>{{dialogueCtrls.title}}</label>
+            </dmDialogueHeaderTitle>
+            <dmDialogueClose ng-click="actionClick()" >
+                <span class="dmTransition"><img src="images/closeQueue.svg"> </span>
+            </dmdialogueclose>
+        </dmDialogueHeader>
+        <dmDialogueBody>
+            <p ng-bind-html="dialogueCtrls.message"></p>
+        </dmDialogueBody>
+        <dmDialogueActions>
+            <button class='popUpbutton' type="button" ng-repeat="ctrl in dialogueCtrls.actionLabel"
+                    ng-click="actionClick($index)"
+                    dm-focus="dialogueCtrls.isShown && $index==0"
+                    > {{ctrl}}</button>
+            <!--            <ul>
+                            <li ng-repeat="ctrl in dialogueCtrls.actionLabel"
+                                ng-click="actionClick($index)">
+                                <button
+                                ng-mouseenter="setHover($index)"
+                                ng-mouseleave="unsetHover($index)"
+                                ng-style="getHoverStyle($index)">
+                                    {{ctrl}}
+                                </button>
+                            </li>
+                        </ul>-->
+        </dmDialogueActions>
+    </dmDialogue>
+</dmDialogueContainer>
+<dmToast ng-if="dialogueCtrls.isShown && dialogueCtrls.type.toLowerCase() == 'toast'"
+         class="dmToastAnimated"
+         ng-class="dialogueCtrls.isShown ? 'fadeInUp' : 'fadeOut'"
+         ng-style="dialogueColor[dialogueCtrls.messageType]"
+         ng-mouseenter="persistToast()"
+         ng-mouseleave="reInitializeToast()">
+    <dmToastMessage>
+        {{dialogueCtrls.message}}
+    </dmToastMessage>
+    <dmToastClose class="dmTransition" ng-click="actionClick()">
+        <span>&#9932;</span>
+    </dmtoastclose>
+</dmToast>

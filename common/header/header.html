@@ -1,0 +1,78 @@
+<div ng-controller="headerCtrl">
+  <div class="mainHeader">
+    <!-- <img src="images/logo_yes_aim_ca_1.png" alt="logoo" /> -->
+
+    <div class="new">
+      <div class="logo">
+        <img src="./images/AIM_CA_Logo 1.png" alt="" width="56px">
+      </div>
+       
+      <div>
+        <label class="tooltip">{{(queueDataName)}}<span
+          ng-if="queueDataName.length>10">...&nbsp;</span>({{system_role}})<span class="tooltiptext"
+          ng-if="queueDataName.length>10">{{queueDataName}}({{system_role}})</span></label>
+        
+       
+         <div class="logoContainer">
+          <span class="title"
+            ng-if="currentPath=='/home' || currentPath=='/queueData'||currentPath=='/cardView' || currentPath=='/ScrutinyForm'||currentPath=='/CompanyForm' || currentPath=='/IndividualForm' || currentPath=='/PartnershipForm' || currentPath=='/PhyScrutinyForm'||currentPath=='/PhyCompanyForm' ||currentPath=='/PhyLLPForm' || currentPath=='/PhyIndividualForm' || currentPath=='/PhyHUFIndividualForm' || currentPath=='/PhyHUFScrutinyForm' || currentPath=='/PhyTASCForm'"
+            ng-click="goToRequiredPath('/home')">Dashboard</span>
+          <span class="title"
+            ng-if="(currentPath=='/cardView'|| currentPath=='/queueData'|| currentPath=='/ScrutinyForm'||currentPath=='/CompanyForm' || currentPath=='/IndividualForm' || currentPath=='/PartnershipForm' || currentPath=='/PhyScrutinyForm'||currentPath=='/PhyCompanyForm'  ||currentPath=='/PhyLLPForm'|| currentPath=='/PhyIndividualForm' || currentPath=='/PhyHUFIndividualForm' || currentPath=='/PhyHUFScrutinyForm' || currentPath=='/PhyTASCForm') && currentQueue['OV_GRID'][0]['QUEUE_ID'] !='11'"
+            ng-click="goToRequiredPath('/queueData')">
+            > {{getQueueName.queue_heading}}</span>
+          <span class="title"
+            ng-if="currentPath=='/ScrutinyForm'|| currentPath=='/CompanyForm' || currentPath=='/IndividualForm' || currentPath=='/PartnershipForm' || currentPath=='/PhyScrutinyForm'||currentPath=='/PhyCompanyForm' ||currentPath=='/PhyLLPForm' || currentPath=='/PhyIndividualForm' || currentPath=='/PhyHUFIndividualForm' || currentPath=='/PhyHUFScrutinyForm' || currentPath=='/PhyTASCForm'">
+            > Case Details</span>
+    
+          <span ng-if="joint_older && currentPath=='/ScrutinyForm' && currentPath!='/home' && !currentcompanyholder">
+            <div ng-repeat="holder in multi_holder_desc" class="holder_joint active_joint_holder"
+              ng-click="holder_seq(holder.MEMBER_ID)">
+              <!--ng-class="{'active_joint_holder': holder.MEMBER_ID != holder_unique_id}"-->
+              <div class="noAAdharImage">{{noAadhar}}</div>
+              <label>
+                <div class="AadharImageName">
+                  <label class="tooltip">{{(holder.FIRST_NAME).slice(0, 5)}}<span
+                      class="tooltiptext">{{holder.FIRST_NAME}}</span></label>
+                </div>
+              </label>
+            </div>
+            <div class="scru_heading_holder">{{currentQueue.QUEUE_HEADING}}</div>
+          </span>
+          <div ng-if="currentcompanyholder && currentPath=='/ScrutinyForm' && currentPath!='/home'">
+            <div class="currentacc">
+              <label>Applicant List:</label>
+              <select ng-change="companyidbroadcast(somethingHere.val)" ng-model="somethingHere.val"
+                ng-init="somethingHere.val = companyfullname[defaultval]">
+                <option value="" hidden></option>
+                <option ng-repeat="holder in companyfullname">{{holder}}</option>
+              </select>
+            </div>
+            <div class="scru_heading_holder">{{currentQueue.QUEUE_HEADING}}</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+
+    <div class="userHeaderAction">
+     
+      <div class="icon-n-logout">
+        <label ng-click="goToPreviousPath('gotoprevious')" class="tooltip"
+          ng-if="(currentPath=='/ScrutinyForm' || currentPath=='/CompanyForm' || currentPath=='/IndividualForm' || currentPath=='/PhyScrutinyForm' || currentPath=='/PhyCompanyForm' ||currentPath=='/PhyLLPForm' || currentPath=='/PhyIndividualForm' || currentPath=='/PartnershipForm' || currentPath=='/PhyHUFIndividualForm' || currentPath=='/PhyHUFScrutinyForm' || currentPath=='/PhyTASCForm')&& currentQueue.QUEUE_ID != 14 && currentQueue.QUEUE_ID != 15"><i
+            class="fa fa-arrow-left"></i><span class="tooltiptext">Back to Previous Page</span><span
+            ng-if="alldocdownload==false || moaaoadocdownload==false" class="tooltiptext">Download may
+            interrupted</span></label>
+        <label ng-click="goToHome('/home')" class="tooltip"><img src="images/home.png" width="20" height="20" />
+         <!--  <span
+            class="tooltiptext">Home</span><span ng-if="alldocdownload==false || moaaoadocdownload==false"
+            class="tooltiptext">Download may interrupted</span>-->
+          </label> 
+        <label class="tooltip"><img src="images/logout.png" ng-click="session_out_lead()" class="logout" />
+          <!-- <span class="tooltiptext">Logout</span><span ng-if="alldocdownload==false || moaaoadocdownload==false"
+            class="tooltiptext">Download may interrupted</span> -->
+          </label>
+      </div>
+    </div>
+  </div>
+</div>

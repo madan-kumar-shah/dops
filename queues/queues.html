@@ -1,0 +1,53 @@
+<header class="pageHeader" ng-include src="'common/header/header.html'"></header>
+<loader ng-show="isLoading" ng-include src="'common/loader/loader.html'"></loader>
+<queueContainer ng-controller="queueCtrl">
+    <div class="allQueues">
+        <div class="allQueuesContainer">
+            <div class="allQueuesHeader">
+                <label>Please hold and drag the queues in order of priority</label>  
+            </div>
+
+            <div class="listContainer" 
+                  ondragenter="angular.element(this).scope().onDragEnter(this,event)" 
+                    ondragover="angular.element(this).scope().onDragOver(this,event)" 
+                    ondrop="angular.element(this).scope().onDropsortedQueues(this, event)">
+
+                <ul>
+                    <li ng-repeat="currentQueue in queues['USER_QUEUE']|orderObjectBy:'QUEUE_SEQ' track by $index"
+                        ondragstart="angular.element(this).scope().onDragStart(this)"
+                        draggable="true" ng-if='currentQueue["QUEUE_ID"]!="14" && currentQueue["QUEUE_ID"]!="15"'>
+                        <div class="queueDesc">
+                            <label> {{currentQueue['QUEUE_HEADING']}}</label>
+                        </div>
+                    </li>   
+                </ul>
+            </div>
+        </div>
+    </div><div class="sortContainer">
+        <div class="cardContainer"
+             ondragenter="angular.element(this).scope().onDragEnter(this,event)" 
+             ondragover="angular.element(this).scope().onDragOver(this,event)" 
+             ondrop="angular.element(this).scope().onDrop(this, event)">
+            <div class="sortQueueContainer">
+                <ul>
+                    <li class="queueList" ng-repeat="queue in sortedQueues" ondragstart="angular.element(this).scope().onDragStartsortedQueues(this)"
+                        draggable="true" ondrop="angular.element(this).scope().onDropList(this, event)">  
+                        <img class="closeQueue" ng-click="removeSortedQueue($index, queue)" src="images/closeQueue.svg">
+                        <div class="sortQueueImg">
+                      
+                            <img  src="images/{{dragQueue[$index]['QUEUE_ICON']}}.svg"> 
+                        </div>
+                        <div class="sortQueueLabel">
+                            <label>{{dragQueue[$index]['QUEUE_HEADING']}}</label>
+                        </div>
+
+                    </li>
+                </ul>
+            </div>
+            <div class="sortContainerFooter">
+                <button ng-click="saveQueue()">Save</button>
+            </div>
+        </div>
+    </div>
+</queueContainer>
+

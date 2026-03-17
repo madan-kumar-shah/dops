@@ -1,0 +1,35 @@
+<style>
+    .ticker-wrapper{
+        width: 95%;
+        height: 40px;
+        margin: auto;
+        overflow: hidden;
+        position: relative;
+    }
+    .ticker-wrapper .ticker-contact{
+        position: absolute;
+        overflow: hidden; 
+        width: auto;
+        height: 100%;
+        top: 0;
+        left: 0;
+    }
+    .ticker-wrapper .ticker-contact span{
+        display: block;
+        width: auto;
+        padding-top: 7px;
+        color: #114B8A;
+        font-size: 11pt;
+        white-space: nowrap;
+        position: relative;
+        top: 0;
+    }
+</style>
+<div class="ticker-wrapper">
+    <div class="ticker-contact">
+        <span class="marquee"
+              ng-bind-html="dataString">
+            
+        </span>
+    </div>
+</div>

@@ -1,0 +1,27 @@
+<header
+  class="pageHeader"
+  ng-include
+  src="'common/header/header.html'"
+></header>
+<loader
+  ng-show="isLoading"
+  ng-include
+  src="'common/loader/loader.html'"
+></loader>
+<div ng-controller="queueDataCtrl" class="queueDataCotainer">
+  <div class="dm-container dm-container-queuedata">
+    <dm-table
+      dm-datasource="dataLeads"
+      dm-searchable="true"
+      dm-color=""
+      dm-showing-pagination="true"
+      dm-theme="ffffff"
+      dm-table-config="tableConfig"
+      dm-column-actions="dmColumnActions"
+      dm-sortable="false"
+      dm-csv-excel-button-color="0560a6"
+      dm-download-btn="true"
+    >
+    </dm-table>
+  </div>
+</div>

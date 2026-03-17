@@ -1,0 +1,157 @@
+<div ng-controller="cardViewCtrl" class="card_body">
+  <header
+    class="pageHeader"
+    ng-include
+    src="'common/header/header.html'"
+  ></header>
+  <loader
+    ng-show="isLoading"
+    ng-include
+    src="'common/loader/loader.html'"
+  ></loader>
+  <div class="srchCard_parent">
+    <div class="srchCard" ng-hide="cardView_Data.length==0">
+      <img src="images/group_6.svg" />
+      <input
+        type="text"
+        placeholder="Search"
+        ng-model="search.value"
+        ng-change="searchData(search.value)"
+      />
+    </div>
+    <h2 ng-show="cardView_Data.length==0" class="no_record_heading">
+      No Record Found
+    </h2>
+    <p ng-hide="cardView_Data.length==0">
+      Showing {{new_length}} out of {{data_search_pagination.length}} results
+    </p>
+    <div class="card_data">
+      <div class="card" ng-repeat="card in cardView track by $index">
+        <form>
+          <div
+            class="fields"
+            ng-repeat="label in card_label|orderBy:'COLUMN_SEQ' "
+          >
+            <label>{{label.COLUMN_LABEL}}</label>
+            <input
+              type="text"
+              ng-model="card[label.COLUMN_OBJ_NAME]"
+              title="{{card[label.COLUMN_OBJ_NAME]}}"
+              readonly
+            />
+          </div>
+        </form>
+        <div ng-show="selectedQ.queue_id == '12'">
+          <button ng-click="goToScrutiny(card);">View</button>
+          <button ng-click="sendVerificationLink(card);">Send Email</button>
+        </div>
+        <div ng-show="selectedQ.queue_id == '15'">
+          <button ng-click="discard_lead(card);">Discard</button>
+          <button ng-click="submit_reassign(card);">Reassign</button>
+        </div>
+        <div ng-show="selectedQ.queue_id == '16'">
+          <button
+            class="download_repoPDF"
+            ng-click="download_iscan_report(card)"
+          >
+            Download Report PDF
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <cardContainerOverlay
+      ng-if="overlayStatus"
+      class="cardContainerOverlay-home"
+    >
+      <div class="searchPopup">
+        <div class="advance_download_report">
+          <div class="advanced-search">
+            <div class="form-container-smartsearch db-advance-show">
+              <div class="header_popup">
+                <h2 class="header_popup_h2">Discard</h2>
+                <img
+                  class="header_popup_img"
+                  src="images/closeQueue.svg"
+                  ng-click="cancel_popup()"
+                  width="15"
+                  height="15"
+                />
+              </div>
+
+              <div class="formBody">
+                <form class="formBody ownBody" name="report_form">
+                  <span>
+                    <p class="formBody_para">
+                      Please select a reason to discard from below drop-down
+                    </p>
+                  </span>
+
+                  <span ng-if="true">
+                    <div class="formField">
+                      <label>Select Reason: </label>
+                      <select
+                        id="discard_select"
+                        ng-model="discard_popup"
+                        class="select_report"
+                        ng-change="setReason_popup()"
+                      >
+                        <option
+                          value="{{reason.discard_id}},{{reason.discard_reason}}"
+                          ng-repeat="reason in discard_reason_array"
+                        >
+                          {{reason.discard_reason}}
+                        </option>
+                      </select>
+                    </div>
+
+                    <div class="resetNshowresult">
+                      <button
+                        id="download_reportbutton"
+                        type="button"
+                        ng-disabled="submit_disable();"
+                        ng-click="discard_leadSubmit()"
+                      >
+                        Submit
+                      </button>
+                      <button
+                        id="download_reportbutton"
+                        type="button"
+                        ng-click="cancel_popup()"
+                      >
+                        Cancel
+                      </button>
+                    </div>
+                  </span>
+                </form>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </cardContainerOverlay>
+
+    <div class="pagtion" ng-if="totalPages>1">
+      <button
+        ng-click="Forward_backward('backward')"
+        ng-disabled="currentPage=='1'"
+      >
+        &laquo;
+      </button>
+      <button
+        ng-click="moveToPage(c)"
+        ng-repeat="c in count track by $index"
+        ng-disabled="c==currentPage"
+        ng-style="c==currentPage?{'background-color':'#c3c3c3'}:{'background-color':'#f6f6f6'}"
+      >
+        {{c}}
+      </button>
+      <button
+        ng-click="Forward_backward('forward')"
+        ng-disabled="currentPage>=totalPages"
+      >
+        &raquo;
+      </button>
+    </div>
+  </div>
+</div>

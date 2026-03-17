@@ -1,0 +1,139 @@
+.card_body {
+  margin-bottom: 1%;
+  height: 100%;
+}
+.pagtion {
+  display: flex;
+  justify-content: center;
+  margin: 1%;
+}
+.pagtion button {
+  color: #919191;
+  float: left;
+  padding: 8px 16px;
+  cursor: pointer;
+  border: none;
+  background-color: #f6f6f6;
+}
+.srchCard {
+  border-radius: 8px;
+  border: 0.5px solid #f6f6f6;
+  background: white;
+  width: 34%;
+  margin: 3% 1% 1% 63%;
+  box-shadow: 1px 1px 5px #c3c3c3;
+  display: flex;
+}
+.srchCard img {
+  padding: 0.5%;
+}
+.srchCard input {
+  width: 100%;
+  margin: 1%;
+  border: none;
+}
+p {
+  margin: -2% 0% 0% 3%;
+}
+.card_data {
+  margin-top: 0.5%;
+  display: flex;
+  justify-content: center;
+  flex-flow: wrap;
+}
+
+.card {
+  width: 90%;
+  box-shadow: 1px 1px 5px #c3c3c3;
+  background: white;
+  padding: 2%;
+  border-radius: 8px;
+  margin: 1%;
+}
+.fields {
+  padding: 0.5%;
+  display: inline-block;
+  width: 24%;
+}
+.card div > button {
+  width: 7%;
+  padding: 0.5%;
+  float: right;
+  margin: 1% 1% 0% 1%;
+}
+.fields input {
+  float: right;
+  border: none;
+  font-weight: bold;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.fields label {
+  color: #86869b;
+  font-size: 12px;
+}
+
+.pagtion2 {
+  height: 100%;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 1%;
+}
+
+.srchCard_parent {
+  width: 100%;
+  height: 83%;
+  overflow-y: auto;
+}
+
+.no_record_heading {
+  text-align: center;
+  font-size: 24px;
+  color: #c3c3c3;
+}
+
+.header_popup_h2 {
+  margin: -2% 3%;
+  padding: 2% 0% 0% 0%;
+  font-size: larger;
+}
+
+.header_popup_img {
+  margin: -2% 93% 2% 95%;
+}
+
+.formBody_para {
+  font-weight: bolder;
+  color: grey;
+  padding-top: 1em;
+  padding-bottom: 0.5em;
+  font-size: 12px;
+}
+
+.resetNshowresult {
+  text-align: center;
+  margin-bottom: 5%;
+  margin-top:30px;
+  display: flex;
+  gap:16px;
+  margin: 0 16px;
+}
+
+.download_repoPDF {
+  width: auto !important;
+}
+
+
+@media only screen and (max-width: 768px){
+  .resetNshowresult{
+    margin:24px 16px 16px;
+  }
+  .fields{
+    width:100%;
+  }
+  .card div > button{
+    width:100%;
+  }
+}

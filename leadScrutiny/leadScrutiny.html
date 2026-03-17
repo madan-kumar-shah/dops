@@ -1,0 +1,592 @@
+<header class="pageHeader" ng-include src="'common/header/header.html'"></header>
+<loader ng-show="isLoading" ng-include src="'common/loader/loader.html'"></loader>
+<leadContainer ng-controller="leadCtrl">
+    <cardOverlay ng-show="showOverlay">
+        <!--        ng-show="showOverlay"-->
+        <div class="dataContainer">
+            <gridContainer class="transition grid-container" ng-show="showGridContainer">
+                <div class="gridHeader">
+                    <label ng-click="closeDataContainerDm()">
+                        <span>
+                            <img src="images/close.png">
+                        </span>
+                    </label>
+                </div>
+                <div class="gridRemarksHeader">
+                    <label>{{leadDtlheading.X_AOF_ID}}</label>:
+                    <label>{{leadDtlheading.X_AOF_NAME}}</label>
+                </div>
+                <div class="gridDataContainer">
+                    <div class="gridViewData">
+                        <div class="dm-container-laedScrrtny">
+                            <dm-table dm-theme="454ade" dm-color="ffffff" dm-datasource="gridViewData" dm-table-data-actions="dmTableDataActions" dm-theme="#454ade" dm-searchable="false" dm-table-heading="tableHeading" dm-row-action="">
+                            </dm-table>
+                        </div>
+                    </div>
+                    <div class="gridViewActions">
+                        <button ng-click="closeDataContainerDm()">Done</button>
+                    </div>
+                </div>
+            </gridContainer>
+            <galleryContainer ng-show="showGalleryContainer">
+                <div class="gridHeader">
+                    <label ng-click="closeDataContainer()">
+                        <span>
+                            <img src="images/close.png">
+                        </span>
+                    </label>
+                </div>
+                <div class="imageContainer">
+                    <div>
+                        <div class="img">
+                        </div>
+                        <div class="imageCanvas">
+                            <canvas id="verificationImageCanvas"></canvas>
+                            <div class="imageCountContainer">
+                                <div>
+                                    <label ng-click="getPrevImage()">Previous</label>
+                                </div>
+                                <div>
+                                    <label ng-click="getNextImage()">Next</label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="imgActionContainer">
+                            <ul>
+                                <li>
+                                    <img src="images/zoomOut.png" ng-click="zoomImageCanvas(-scaleFactor)">
+                                </li>
+                                <li>
+                                    <img src="images/zoomIn.png" ng-click="zoomImageCanvas(scaleFactor)">
+                                </li>
+                                <li>
+                                    <img src="images/rotate.png" ng-click="rotateCanvasImage()">
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </galleryContainer>
+            <cardContainerOverlay ng-show="showCardContainerOverlay">
+            </cardContainerOverlay>
+            <parentContainerRemarks ng-show="isParentRemarksContainerShown">
+                <div class="gridHeader">
+                    <label ng-click="closeParentRemarksContainer()">
+                        <span>
+                            <img src="images/close.png">
+                        </span>
+                    </label>
+                </div>
+                <div class="fvremarks">
+                    <div class="remarksHeader">
+                        <label>{{leadDtl.X_AOF_ID}} :</label>
+                        <label>{{leadDtl.X_AOF_NAME}}</label>
+                    </div>
+                    <div class="remarksSection">
+                        <div>
+                            <label>Remarks:</label>
+                        </div>
+                        <div>
+                            <textarea ng-model="childActionRemarks" maxlength="200"></textarea>
+                        </div>
+                    </div>
+                    <div class="remarksDone">
+                        <button ng-click="addParentRemarks()">Add Remarks</button>
+                    </div>
+                </div>
+            </parentContainerRemarks>
+            <cardContainerRemarks ng-show="isRemarksContainerShown">
+                <div class="cardHeader">
+                    <label ng-click="closeRemarksContainer()">
+                        <span>
+                            <img src="images/close.png">
+                        </span>
+                    </label>
+                </div>
+                <div class="remarks">
+                    <div class="remarksHeader">
+                        <label>{{leadDtl.X_AOF_ID}}</label>:
+                        <label>{{leadDtl.X_AOF_NAME}}</label>
+                    </div>
+                    <div class="remarksSection">
+                        <div>
+                            <label>Remarks:</label>
+                        </div>
+                        <div>
+                            <textarea ng-model="childActionRemarks" maxlength="200"></textarea>
+                        </div>
+                    </div>
+                    <div class="remarksDone">
+                        <button ng-click="addChildRemarks()">Add Remarks</button>
+                    </div>
+                </div>
+            </cardContainerRemarks>
+            <cardContainer ng-show="showCardContainer">
+                <!---->
+                <div class="gridHeader">
+                    <label ng-click="closeDataContainer()">
+                        <span>
+                            <img src="images/close.png">
+                        </span>
+                    </label>
+                </div>
+                <div class="cardListContainer">
+                    <div class="remarksHeader">
+                        <label>{{leadDtl.X_AOF_ID}}</label>:
+                        <label>{{leadDtl.X_AOF_NAME}}</label>
+                    </div>
+                    <ul>
+                        <li class="leadList" ng-repeat="exceptionLead in exceptionData| limitTo : exceptionCardWebOn[0]['NUMBER_OF_CARDS_TO_DISPLAY']">
+                            <div class="leadIdContainer">
+                                <!-- <label>{{exceptionLead.aof_id}} :</label> -->
+                                <!-- <label>{{exceptionLead.aof_name}}</label> -->
+                            </div>
+                            <div class="leadDataContainer leadListContainer fvLeadDataContainer">
+                                <ul>
+                                    <li ng-repeat="data in exceptionCardWebOn[0]['FV_ATTR_CHILD']">
+                                        <label>{{data.ATTR_LABEL}} :</label>
+                                        <label ng-attr-tool-tip="exceptionLead[data.ATTR_OBJ_NAME].length>21 ? exceptionLead[data.ATTR_OBJ_NAME]: ''" class="tool-tip-label" ng-if='data.ATTR_TYPE == "DATA"'>
+                                            <!-- <h1>{{data.ATTR_TYPE}}</h1> -->
+                                            <label>{{exceptionLead[data.ATTR_OBJ_NAME]}}
+                                            </label>
+                                        </label>
+                                        <label ng-if='data.ATTR_TYPE == "GRID"' ng-click="getChildData(data, data.DETAIL_VIEW_TYPE,exceptionLead,  exceptionLead['aof_id'])" class="countData">
+                                            {{exceptionLead[data.ATTR_OBJ_NAME]}}
+                                        </label>
+                                        <label ng-if='data.ATTR_TYPE == "GALLERY"' ng-click="getChildData(data, data.DETAIL_VIEW_TYPE, exceptionLead[cardData[0]['PRIMARY_KEY_ATTRIBUTE']])" class="countData">
+                                            {{exceptionLead[data.ATTR_OBJ_NAME]}}
+                                        </label>
+                                        <!-- <label ng-click="getChildData(data, data.DETAIL_VIEW_TYPE, exceptionLead[cardData[0]['PRIMARY_KEY_ATTRIBUTE']])" class="countData">
+                                            {{exceptionLead[data.ATTR_OBJ_NAME]}}
+                                        </label> -->
+                                    </li>
+                                </ul>
+                            </div>
+                            <div class="leadActionContainer fvLeadActionContainer">
+                                <ul>
+                                    <li ng-repeat="action in exceptionCardWebOn[0]['FV_CARD_ACTION_CHILD']">
+                                        <label><img src="images/{{action.ACTION_ICON}}.png"></label>
+                                        <label ng-click="childCardActions(action, exceptionLead, lead, $parent.$index)">{{action.ACTION_LABEL }}</label>
+                                    </li>
+                                </ul>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+            </cardContainer>
+        </div>
+    </cardoverlay>
+    <div>
+        <!-- <h1>{{cardWebOn.GLOBAL_SEARCH_ALLOWED}}</h1> -->
+        <!-- Advanced search starts here  -->
+        <div class="advanced-search-container">
+            <div class="advanced-search">
+                <form action="">
+                    <div class="search-input">
+                        <input type="text" placeholder="Search..." ng-model="searchLead" class="search-text-input">
+                        <div class="button-holder">
+                            <img src="images/search-enabled.svg">
+                            <img src="images/arrow_drop_down_grey_36x36.png" class="down-arrow">
+                        </div>
+                    </div>
+                    <!-- Advanced search list form starts here Nicky -->
+                    <!-- Nicky Comments Starts here -->
+                    <div class="form-container-smartsearch" ng-if="cardWebOn.GLOBAL_SEARCH_ALLOWED=='Y'">
+                        <!--      <div class="CRN advanced-input-label">
+                            <label for="">CRN:</label>
+                            <input type="text">
+                        </div>
+                        <div class="AOFID advanced-input-label">
+                            <label for="">AOFID:</label>
+                            <input type="text">
+                        </div>
+                        <div class="mobileNo advanced-input-label">
+                            <label for="">Mobile No:</label>
+                            <input type="text">
+                        </div>
+                        <div class="value advanced-input-label advanced-input-label-select ">
+                            <label for="">Value:</label>
+                            <select name="" id="">
+                                <option value="Equalto">equalto</option>
+                                <option value="Greaterthan">Greaterthan</option>
+                                <option value="Smallerthan">Smallerthan</option>
+                            </select>
+                        </div>
+                        <div class="resetNshowresult">
+                            <div class="reset">
+                                <button type="button">Reset</button>
+                            </div>
+                            <div class="showresult">
+                                <button type="button">Show Result</button>
+                            </div>
+                        </div> -->
+                        <div class="formBody">
+                            <form name="forms['{{openedForm}}']" class="formBody">
+                                <div ng-repeat="section in currentFormSections track by $index" class="animated fadeInBottom formSection" ng-style="{ 'position':'relative'}">
+                                    <header class="capitalize">
+                                        <label gtng-show="section['PARAM_GROUP'].lenh > 0">{{section['PARAM_GROUP']}}</label>
+                                    </header>
+                                    <section>
+                                        <ul class="inlineList">
+                                            <li ng-repeat="parameters in currentFormParameters| byProp:'PARAM_GROUP':section['PARAM_GROUP'] | orderObjectBy:'PARAM_SEQ' track by parameters.PARAM_ID">
+                                                <div ng-switch on="parameters['DATA_TYPE'] | lowercase" class="div-parmetr">
+                                                    <label class="capitalize">
+                                                        {{parameters["PARAM_DESC"]}}<span class="mandatoryIcon"><sup ng-show="parameters['mandatory'].toLowerCase() === 'y' && !isParamDisable(parameters)"> * </sup></span>
+                                                    </label>
+                                                    <!-- ----- {{leadFormData[parameters['JSON_NAME']]}} -->
+                                                    <input type="text" name="{{parameters['JSON_NAME']}}" ng-switch-when="text" validate="parameters" ng-focus="setFocus(parameters)" maxlength="{{parameters['max_length']}}" ng-change="getValOnChange(parameters['JSON_NAME'])" ng-style="" title="{{forms[openedForm.formTempName][parameters['JSON_NAME']]['$viewValue']?forms[openedForm.formTempName][parameters['JSON_NAME']]['$viewValue'] + (validateData['inputCtrls'][parameters['JSON_NAME']]['errorMessage']?'\n\nError(s):\n' + validateData['inputCtrls'][parameters['JSON_NAME']]['errorMessage']:''):validateData['inputCtrls'][parameters['JSON_NAME']]['errorMessage']}}" ng-disabled="isParamDisable(parameters)" ng-init="getInitVal(parameters['JSON_NAME'])" ng-model="leadFormData[parameters['JSON_NAME']]" ng-class="{'invalidInput':validateData['inputCtrls'][parameters['JSON_NAME']]['isInvalid']}" ng-required="checkFormElement(parameters, editLeadAOFData) &&  !isParamDisable(parameters) ">
+                                                    <div ng-switch-when="tcb" name="{{parameters['JSON_NAME']}}" ng-model="editLeadAOFData[parameters['JSON_NAME']]" validate="parameters" title="{{validateData['inputCtrls'][parameters['JSON_NAME']]['errorMessage']}}" ng-required="checkFormElement(parameters, editLeadAOFData) &&  !isParamDisable(parameters) ">
+                                                        <span ng-init="options = getCheckOptions(parameters, editLeadAOFData)">
+                                                <!--                                            <span >-->
+                                                <!--ng-model="editLeadAOFData[parameters['FORM_ID']][parameters['JSON_NAME']][option.value_code]"-->
+                                                <div ng-repeat="option in options">
+                                                    <input type="checkbox"
+                                                           title="{{validateData['inputCtrls'][parameters['JSON_NAME']]['errorMessage']}}"
+
+                                                           id="{{parameters['JSON_NAME'] + '_' + $index}}"
+                                                           ng-model="editLeadAOFData[parameters['FORM_ID']][parameters['JSON_NAME']][option.value_desc]"
+                                                           ng-true-value="'Y'"
+                                                           ng-false-value="'N'"
+                                                           ng-disabled="isParamDisable(parameters)"
+                                                           ng-style=""
+                                                           ng-init="editLeadAOFData[parameters['FORM_ID']][parameters['JSON_NAME']][option.value_desc]=editLeadAOFData[parameters['FORM_ID']][parameters['JSON_NAME']][option.value_desc]?editLeadAOFData[parameters['FORM_ID']][parameters['JSON_NAME']][option.value_desc]:'N'"
+                                                           >
+                                                    <!--ng-checked="initializeFormData(option.value_code,parameters,currentLeadAOFData,editLeadAOFData)"-->
+                                                    <!--ng-disabled="value.value_code=='SB'"-->
+
+                                                    <label for="{{parameters['JSON_NAME'] + '_' + $index}}"
+                                                           ng-attr-title="{{ validationTitle[parameters['FORM_ID']][parameters['JSON_NAME']]}}">{{option.value_desc}}</label>
+                                                </div>
+                                            </span>
+                                                    </div>
+                                                    <div name="{{parameters['JSON_NAME']}}" ng-switch-when="cb" ng-model="editLeadAOFData[parameters['JSON_NAME']]" validate="parameters" title="{{validateData['inputCtrls'][parameters['JSON_NAME']]['errorMessage']}}" ng-required="checkFormElement(parameters, editLeadAOFData) &&  !isParamDisable(parameters) ">
+                                                        <span ng-init="options = getCheckOptions(parameters, editLeadAOFData)">
+
+                                                <!--                                            <span >-->
+                                                <!--ng-model="editLeadAOFData[parameters['FORM_ID']][parameters['JSON_NAME']][option.value_code]"-->
+                                                <div ng-repeat="option in options">
+
+                                                    <input type="checkbox"
+                                                           title="{{validateData['inputCtrls'][parameters['JSON_NAME']]['errorMessage']}}"
+
+                                                           id="{{parameters['JSON_NAME'] + '_' + $index}}"
+                                                           ng-model="editLeadAOFData[parameters['FORM_ID']][parameters['JSON_NAME']][option.value_desc]"
+                                                           ng-true-value="'{{option.value_code}}'"
+                                                           ng-false-value="'no'"
+                                                           ng-disabled="isParamDisable(parameters)"
+                                                           ng-style=""
+                                                           ng-init="editLeadAOFData[parameters['FORM_ID']][parameters['JSON_NAME']][option.value_desc]=editLeadAOFData[parameters['FORM_ID']][parameters['JSON_NAME']][option.value_desc]?editLeadAOFData[parameters['FORM_ID']][parameters['JSON_NAME']][option.value_desc]:'no'"
+                                                           >
+                                                    <!--ng-checked="initializeFormData(option.value_code,parameters,currentLeadAOFData,editLeadAOFData)"-->
+                                                    <!--ng-disabled="value.value_code=='SB'"-->
+
+                                                    <label for="{{parameters['JSON_NAME'] + '_' + $index}}"
+                                                           title="{{validateData['inputCtrls'][parameters['JSON_NAME']]['errorMessage']}}"
+                                                           >{{option.value_desc}}
+                                                    </label>
+                                                </div>
+                                            </span>
+                                                    </div>
+                                                    <div ng-switch-when="rb" name="{{parameters['JSON_NAME']}}" ng-model="editLeadAOFData[parameters['JSON_NAME']]" validate="parameters" title="{{forms[openedForm.formTempName][parameters['JSON_NAME']]['$viewValue']?forms[openedForm.formTempName][parameters['JSON_NAME']]['$viewValue'] + (validateData['inputCtrls'][parameters['JSON_NAME']]['errorMessage']?'\n\nError(s):\n' + validateData['inputCtrls'][parameters['JSON_NAME']]['errorMessage']:''):validateData['inputCtrls'][parameters['JSON_NAME']]['errorMessage']}}" ng-required="checkFormElement(parameters, editLeadAOFData) &&  !isParamDisable(parameters) ">
+                                                        <span ng-init="options = getCheckOptions(parameters, editLeadAOFData)">
+                                                <div ng-repeat="option in options">
+                                                    <input type="radio"
+                                                           title="{{validateData['inputCtrls'][parameters['JSON_NAME']]['errorMessage']}}"
+
+                                                           value="{{option.value_code}}"
+                                                           id="{{parameters['JSON_NAME'] + '_' + $index}}"
+                                                          ng-model="editLeadAOFData[parameters['JSON_NAME']]"
+                                                           ng-style=""
+                                                           ng-disabled="isParamDisable(parameters)"
+                                                           >
+
+                                                    <label for="{{parameters['JSON_NAME'] + '_' + $index}}"
+                                                           title="{{validateData['inputCtrls'][parameters['JSON_NAME']]['errorMessage']}}"
+                                                           >
+                                                        {{option.value_desc}}
+                                                    </label>
+                                                </div>
+                                            </span>
+                                                    </div>
+                                                    <div ng-switch-when="textarea">
+                                                        <textarea title="{{forms[openedForm.formTempName][parameters['JSON_NAME']]['$viewValue']?forms[openedForm.formTempName][parameters['JSON_NAME']]['$viewValue'] + (validateData['inputCtrls'][parameters['JSON_NAME']]['errorMessage']?'\n\nError(s):\n' + validateData['inputCtrls'][parameters['JSON_NAME']]['errorMessage']:''):validateData['inputCtrls'][parameters['JSON_NAME']]['errorMessage']}}" name="{{parameters['JSON_NAME']}}" validate="parameters" ng-focus="setFocus(parameters)" ng-model="editLeadAOFData[parameters['JSON_NAME']]" ng-style="" ng-disabled="isParamDisable(parameters)" ng-required="checkFormElement(parameters, editLeadAOFData) &&  !isParamDisable(parameters) " ng-class="{'invalidInput':validateData['inputCtrls'][parameters['JSON_NAME']]['isInvalid']}">
+                                                        </textarea>
+                                                        <div>
+                                                            ({{editLeadAOFData[parameters['FORM_ID']][parameters['JSON_NAME']].length|| 0}}/{{parameters['max_length']}})
+                                                        </div>
+                                                    </div>
+                                                    <!--{{editLeadAOFData[parameters['FORM_ID']][parameters['JSON_NAME']]}}-->
+                                                    <div ng-switch-when="select">
+                                                        <!--                                            <searchlist  name="{{parameters['JSON_NAME']}}"
+                                                                                                     validate="parameters"
+                                                                                                     title="{{validateData['inputCtrls'][parameters['JSON_NAME']]['errorMessage']}}"
+                                                                                                     itemlist="{{getCGValues(parameters, editLeadAOFData)}}" 
+                                                                                                     itemvalue="value_code" 
+                                                                                                     itemdesc="value_desc" 
+                                                                                                     placeholder="" 
+                                                                                                     itemaction=""
+                                                                                                     themecolor="114B8A"
+                                                                                                    ng-model="editLeadAOFData[parameters['JSON_NAME']]"
+                                                                                                     searchlist-change=""
+                                                                                                     dm-disabled="{{isParamDisable(parameters)}}"
+                                                                                                     modeltype="value"
+                                                                                                     textbox-style="{{}}"
+                                                                                                     ng-required="checkFormElement(parameters, editLeadAOFData) &&  !isParamDisable(parameters) "
+                                                                                                     >
+                                                                                        </searchlist>-->
+                                                        <inputng-model="editLeadAOFData[parameters['FORM_ID']][parameters['JSON_NAME']]" name="{{parameters['JSON_NAME']}}" title="{{forms[openedForm.formTempName][parameters['JSON_NAME']]['$viewValue']?forms[openedForm.formTempName][parameters['JSON_NAME']]['$viewValue'] + '(' + forms[openedForm.formTempName][parameters['JSON_NAME']]['$modelValue'] + ')' + (validateData['inputCtrls'][parameters['JSON_NAME']]['errorMessage']?'\n\nError(s):\n' + validateData['inputCtrls'][parameters['JSON_NAME']]['errorMessage']:''):validateData['inputCtrls'][parameters['JSON_NAME']]['errorMessage']}}" type="text" dm-search-list="getCGValues(parameters, editLeadAOFData)" theme='114B8A' itemvalue="value_code" modalType='value' itemdesc="value_desc" ng-disabled="isParamDisable(parameters)" validate="parameters" ng-required="checkFormElement(parameters, editLeadAOFData) &&  !isParamDisable(parameters) " ng-class="{'invalidInput':validateData['inputCtrls'][parameters['JSON_NAME']]['isInvalid']}">
+                                                            <span class="searchListArrow" ng-hide="isParamDisable(parameters)">&#x9b;</span>
+                                                    </div>
+                                                    <input type="text" validate="parameters" title="{{forms[openedForm.formTempName][parameters['JSON_NAME']]['$viewValue']?forms[openedForm.formTempName][parameters['JSON_NAME']]['$viewValue'] + (validateData['inputCtrls'][parameters['JSON_NAME']]['errorMessage']?'\n\nError(s):\n' + validateData['inputCtrls'][parameters['JSON_NAME']]['errorMessage']:''):validateData['inputCtrls'][parameters['JSON_NAME']]['errorMessage']}}" name="{{parameters['JSON_NAME']}}" ng-model="editLeadAOFData[parameters['JSON_NAME']]" id="" ng-switch-when="date" pikaday="myPickerObject" ng-init="" ng-style="" ng-change="" ng-disabled="isParamDisable(parameters)" ng-required="checkFormElement(parameters, editLeadAOFData) &&  !isParamDisable(parameters) " ng-class="{'invalidInput':validateData['inputCtrls'][parameters['JSON_NAME']]['isInvalid']}" dm-format-date>
+                                                    <div ng-switch-when="datetime" class="datetimeBox" title="{{forms[openedForm.formTempName][parameters['JSON_NAME']]['$viewValue']?forms[openedForm.formTempName][parameters['JSON_NAME']]['$viewValue'] + (validateData['inputCtrls'][parameters['JSON_NAME']]['errorMessage']?'\n\nError(s):\n' + validateData['inputCtrls'][parameters['JSON_NAME']]['errorMessage']:''):validateData['inputCtrls'][parameters['JSON_NAME']]['errorMessage']}}" ng-init="editLeadAOFData[parameters['FORM_ID']][parameters['JSON_NAME']] = {date:'', time:''}">
+                                                        <input type="text" validate="parameters" title="{{forms[openedForm.formTempName][parameters['JSON_NAME']]['$viewValue']?forms[openedForm.formTempName][parameters['JSON_NAME']]['$viewValue'] + (validateData['inputCtrls'][parameters['JSON_NAME']]['errorMessage']?'\n\nError(s):\n' + validateData['inputCtrls'][parameters['JSON_NAME']]['errorMessage']:''):validateData['inputCtrls'][parameters['JSON_NAME']]['errorMessage']}}" name="{{parameters['JSON_NAME']}}" class="" ng-model="editLeadAOFData[parameters['FORM_ID']][parameters['JSON_NAME']]['date']" id="" pikaday="myPickerObject" ng-init="" placeholder="Date" ng-style="" ng-disabled="isParamDisable(parameters)" ng-required="checkFormElement(parameters, editLeadAOFData) &&  !isParamDisable(parameters) ">
+                                                        <dm-time-picker ng-model="editLeadAOFData[parameters['FORM_ID']][parameters['JSON_NAME']]['time']" ng-required="checkFormElement(parameters, editLeadAOFData) &&  !isParamDisable(parameters) " validate="parameters" title="{{forms[openedForm.formTempName][parameters['JSON_NAME']]['$viewValue']?forms[openedForm.formTempName][parameters['JSON_NAME']]['$viewValue'] + (validateData['inputCtrls'][parameters['JSON_NAME']]['errorMessage']?'\n\nError(s):\n' + validateData['inputCtrls'][parameters['JSON_NAME']]['errorMessage']:''):validateData['inputCtrls'][parameters['JSON_NAME']]['errorMessage']}}">
+                                                        </dm-time-picker>
+                                                    </div>
+                                                    <input type="text" validate="parameters" title="{{forms[openedForm.formTempName][parameters['JSON_NAME']]['$viewValue']?forms[openedForm.formTempName][parameters['JSON_NAME']]['$viewValue'] + (validateData['inputCtrls'][parameters['JSON_NAME']]['errorMessage']?'\n\nError(s):\n' + validateData['inputCtrls'][parameters['JSON_NAME']]['errorMessage']:''):validateData['inputCtrls'][parameters['JSON_NAME']]['errorMessage']}}" name="{{parameters['JSON_NAME']}}" ng-focus="setFocus(parameters)" ng-model="editLeadAOFData[parameters['JSON_NAME']]" ng-switch-default="" ng-disabled="isParamDisable(parameters)" ng-required="checkFormElement(parameters, editLeadAOFData) &&  !isParamDisable(parameters) " ng-class="{'invalidInput':validateData['inputCtrls'][parameters['JSON_NAME']]['isInvalid']}">
+                                                </div>
+                                                <!--                                    <div ng-if="checkFormElement(parameters,editLeadAOFData)"
+                                                                             ng-switch on="parameters['DATA_TYPE'] | lowercase">
+                                                                            <label class="capitalize fontStyle">
+                                                                                {{parameters["param_name"]}}<span class="mandatoryIcon"><sup ng-show="onMandatory(parameters)"> * </sup></span>:
+                                                                            </label><br>
+                                                                            <input 
+                                                                                type="text"
+                                                                                ng-focus="setFocus(parameters)"
+                                                                                ng-switch-when="text"
+                                                                                maxlength ="{{parameters['max_length']}}"
+                                                                               ng-model="editLeadAOFData[parameters['JSON_NAME']]"
+                                                                                ng-style="isParamValid(parameters, editLeadAOFData[parameters['FORM_ID']][parameters['JSON_NAME']])"
+                                                                                ng-disabled="isParamEnabled(parameters['is_enabled'])"
+                                                                                ng-attr-title="{{ validationTitle[parameters['FORM_ID']][parameters['JSON_NAME']]}}">
+                                                                            <div ng-switch-when="cb">
+                                                                                <span ng-if="parameters['fixed_value'].length <= 0">
+                                                                                    <div ng-repeat="value in formCgValues| paramBasedValues:parameters['paramter_id']">
+                                                                                        <input type="checkbox"
+                                                                                               id="{{parameters['JSON_NAME'] + '_' + $index}}"
+                                                                                               ng-model="editLeadAOFData[parameters['FORM_ID']][parameters['JSON_NAME']][value.value_desc]"
+                                                                                               ng-true-value="'yes'"
+                                                                                               ng-false-value="'no'"
+                                                                                               ng-style="isParamValid(parameters, editLeadAOFData[parameters['FORM_ID']][parameters['JSON_NAME']])"
+                                                                                               ng-disabled="isParamEnabled(parameters['is_enabled'])"
+                                                                                               ng-attr-title="{{ validationTitle[parameters['FORM_ID']][parameters['JSON_NAME']]}}">
+                                                                                        <label for="{{parameters['JSON_NAME'] + '_' + $index}}"
+                                                                                               ng-attr-title="{{ validationTitle[parameters['FORM_ID']][parameters['JSON_NAME']]}}">{{value.value_desc}}</label>
+                                                                                    </div>
+                                                                                </span>
+                                                                                <span ng-if="parameters['fixed_value'].length > 0" ng-repeat="checkOpt in parameters['fixed_value']| splitByDelimitor:'^'">
+                                                                                    <input 
+                                                                                        type="checkbox" 
+                                                                                        id="{{parameters['JSON_NAME'] + '_' + $index}}"
+                                                                                        ng-true-value="'yes'"
+                                                                                        ng-false-value="'no'"
+                                                                                        ng-model="editLeadAOFData[parameters['FORM_ID']][parameters['JSON_NAME']][checkOpt]"
+                                                                                        ng-style="isParamValid(parameters, editLeadAOFData[parameters['FORM_ID']][parameters['JSON_NAME']])"
+                                                                                        ng-disabled="isParamEnabled(parameters['is_enabled'])"
+                                                                                        ng-attr-title="{{ validationTitle[parameters['FORM_ID']][parameters['JSON_NAME']]}}">
+                                                                                    <label for="{{parameters['JSON_NAME'] + '_' + $index}}"
+                                                                                           ng-attr-title="{{ validationTitle[parameters['FORM_ID']][parameters['JSON_NAME']]}}">
+                                                                                        {{checkOpt}}
+                                                                                    </label>
+                                                                                </span>
+                                                                            </div>
+                                                                            <div ng-switch-when="rb">
+                                                                                <span ng-if="parameters['fixed_value'].length <= 0">
+                                                                                    <div ng-repeat="value in formCgValues| paramBasedValues:parameters['paramter_id']">
+                                    
+                                                                                        <input type="radio"
+                                                                                               value="{{value.value_code}}"
+                                                                                               id="{{parameters['JSON_NAME'] + '_' + $index}}"
+                                                                                              ng-model="editLeadAOFData[parameters['JSON_NAME']]"
+                                                                                               ng-style="isParamValid(parameters, editLeadAOFData[parameters['FORM_ID']][parameters['JSON_NAME']])"
+                                                                                               ng-disabled="isParamEnabled(parameters['is_enabled'])"
+                                                                                               ng-attr-title="{{validationTitle[parameters['FORM_ID']][parameters['JSON_NAME']]}}"                                                   
+                                                                                               >
+                                                                                        <label for="{{parameters['JSON_NAME'] + '_' + $index}}"
+                                                                                               ng-attr-title="{{ validationTitle[parameters['FORM_ID']][parameters['JSON_NAME']]}}">{{value.value_desc}}</label>
+                                                                                    </div>
+                                    
+                                                                                </span>
+                                                                                <span ng-repeat="radioOpt in parameters['fixed_value']| splitByDelimitor:'^'">
+                                                                                    <input type="radio"
+                                                                                           value="radioOpt"
+                                                                                           id="{{parameters['JSON_NAME'] + '_' + $index}}"
+                                                                                          ng-model="editLeadAOFData[parameters['JSON_NAME']]"
+                                                                                           ng-disabled="isParamEnabled(parameters['is_enabled'])"
+                                                                                           ng-attr-title="{{ validationTitle[parameters['FORM_ID']][parameters['JSON_NAME']]}}"
+                                                                                           ng-checked="radioOpt == editLeadAOFData[parameters['FORM_ID']][parameters['JSON_NAME']]">
+                                                                                    <label for="{{parameters['JSON_NAME'] + '_' + $index}}"
+                                                                                           ng-attr-title="{{ validationTitle[parameters['FORM_ID']][parameters['JSON_NAME']]}}">
+                                                                                        {{radioOpt}}
+                                                                                    </label>
+                                                                                </span>
+                                                                            </div>
+                                                                            <textarea 
+                                                                                ng-focus="setFocus(parameters)"
+                                                                                ng-switch-when="textarea"
+                                                                               ng-model="editLeadAOFData[parameters['JSON_NAME']]"
+                                                                                ng-style="isParamValid(parameters, editLeadAOFData[parameters['FORM_ID']][parameters['JSON_NAME']])"
+                                                                                ng-disabled="isParamEnabled(parameters['is_enabled'])"
+                                                                                ng-attr-title="{{ validationTitle[parameters['FORM_ID']][parameters['JSON_NAME']]}}">
+                                                                            </textarea>
+                                                                            <div ng-switch-when="select">
+                                                                                <searchlist  ng-if="parameters['cg_reload_process_id'] == ''"
+                                                                                             itemlist="{{getCGValues(parameters)}}" 
+                                                                                             itemvalue="value_code" 
+                                                                                             itemdesc="value_desc" 
+                                                                                             placeholder="" 
+                                                                                             itemaction=""
+                                                                                             themecolor="114B8A"
+                                                                                            ng-model="editLeadAOFData[parameters['JSON_NAME']]"
+                                                                                             searchlist-change=""
+                                                                                             modeltype="value"
+                                                                                             title="{{ validationTitle[parameters['FORM_ID']][parameters['JSON_NAME']]}}"
+                                                                                             textbox-style="{{isParamValid(parameters, editLeadAOFData[parameters['FORM_ID']][parameters['JSON_NAME']])}}"
+                                                                                             >
+                                                                                </searchlist>
+                                                                            </div>
+                                                                            <input type="text" 
+                                                                                  ng-model="editLeadAOFData[parameters['JSON_NAME']]" 
+                                                                                   id="" 
+                                                                                   ng-switch-when="date"
+                                                                                   pikaday="myPickerObject"
+                                                                                   ng-init=""
+                                                                                   ng-style="isParamValid(parameters, editLeadAOFData[parameters['FORM_ID']][parameters['JSON_NAME']])"
+                                                                                   ng-disabled="isParamEnabled(parameters['is_enabled'])"
+                                                                                   ng-attr-title="{{ validationTitle[parameters['FORM_ID']][parameters['JSON_NAME']]}}">
+                                                                            <div ng-switch-when="datetime" 
+                                                                                 class="datetimeBox"
+                                                                                 ng-init="editLeadAOFData[parameters['FORM_ID']][parameters['JSON_NAME']]={date:'',time:''}">
+                                                                                <input type="text"
+                                                                                       class=""
+                                                                                       ng-model="editLeadAOFData[parameters['FORM_ID']][parameters['JSON_NAME']]['date']" 
+                                                                                       id="" 
+                                                                                       pikaday="myPickerObject"
+                                                                                       ng-init=""
+                                                                                       placeholder="Date"
+                                                                                       ng-style="isParamValid(parameters, editLeadAOFData[parameters['FORM_ID']][parameters['JSON_NAME']])"
+                                                                                       ng-disabled="isParamEnabled(parameters['is_enabled'])"
+                                                                                       ng-attr-title="{{ validationTitle[parameters['FORM_ID']][parameters['JSON_NAME']]}}">
+                                                                                <dm-time-picker ng-model="editLeadAOFData[parameters['FORM_ID']][parameters['JSON_NAME']]['time']">
+                                                                                </dm-time-picker>
+                                                                            </div>
+                                                                            <input type="text"
+                                                                                   ng-focus="setFocus(parameters)"
+                                                                                  ng-model="editLeadAOFData[parameters['JSON_NAME']]"
+                                                                                   ng-switch-default=""
+                                                                                   ng-disabled="isParamEnabled(parameters['is_enabled'])"
+                                                                                   ng-attr-title="{{ validationTitle[parameters['FORM_ID']][parameters['JSON_NAME']]}}">
+                                                                        </div>-->
+                                            </li>
+                                        </ul>
+                                    </section>
+                                    <!--  <footer>    
+                        </footer>-->
+                                </div>
+                                <!--                   exception-->
+                                <!--                    <div ng-if="openedForm.currentForm == '1'">
+                        <div class="exceptionSection">
+                            <label 
+                               class="animated fadeIn"
+                              >
+                            Exceptions
+                        </label>
+                            <ul>
+                                <li>ok</li>
+                                <li>ok</li>
+                                <li>ok</li>
+                            </ul>
+                        </div>
+                        
+                    </div>-->
+                                <div class="resetNshowresult">
+                                    <div class="reset">
+                                        <button type="button" ng-click="resetAdvance()">Reset</button>
+                                    </div>
+                                    <div class="showresult">
+                                        <button type="button" ng-click="submitAdvance()">Show Result</button>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                    <!-- <div class="intForm" ng-if="integrationView=='form' && showIntFormData">
+                        <div class="subLoader" ng-show="loaderObj[currentOnlineProcess['TAB_VIEW_TYPE']]">
+                            <div class="subLoaderContent">
+                                <i class="fa fa-spinner fa-spin"></i>
+                            </div>
+                        </div>
+                        <div class="formBody">
+                            <form class="formBody">
+                                <section>
+                                    <ul class="inlineList">
+                                        <li ng-repeat="parameters in intCurrentFormParameters| orderObjectBy:'PARAM_SEQ' track by parameters.PARAM_ID">
+                                            <div ng-switch on="parameters['DATA_TYPE'] | lowercase">
+                                                <label class="capitalize">
+                                                    {{parameters["PARAM_DESC"]}}<span class="mandatoryIcon"><sup ng-show="parameters['mandatory'].toLowerCase() === 'y' && !isParamDisable(parameters)"> * </sup></span>
+                                                </label>
+                                                <input type="text" name="{{parameters['JSON_NAME']}}" ng-switch-when="text" validate="parameters" ng-focus="setFocus(parameters)" ng-style="" title="{{forms[openedForm.formTempName][parameters['JSON_NAME']]['$viewValue']?forms[openedForm.formTempName][parameters['JSON_NAME']]['$viewValue'] + (validateData['inputCtrls'][parameters['JSON_NAME']]['errorMessage']?'\n\nError(s):\n' + validateData['inputCtrls'][parameters['JSON_NAME']]['errorMessage']:''):validateData['inputCtrls'][parameters['JSON_NAME']]['errorMessage']}}" ng-init="getInitIntegrationVal(parameters['JSON_NAME'])" ng-model="intFormData[parameters['JSON_NAME']]" disabled>
+                                            </div>
+                                        </li>
+                                    </ul>
+                                </section>
+                            </form>
+                        </div>
+                    </div> -->
+                    <!-- Nicky comments ends -->
+                    <!-- Advanced search list form Ends here Nicky-->
+                    <!-- Advanced search WebOn list form starts here Nicky-->
+                    <div ng-include="'./commonFilters/advanceSearchWebon.html'"></div>
+                    <!-- Advanced search WebOn form Ends here Nicky-->
+                </form>
+            </div>
+        </div>
+        <!-- Advanced search Ends here  -->
+        <!-- limitTo : cardWebOn['FV_DFN'][0]['NUMBER_OF_CARDS_TO_DISPLAY'] -->
+        <ul class="list-ul">
+            <!-- <li class="leadList" ng-repeat="lead in leads|filter:searchLead"> -->
+            <li class="leadList" ng-repeat='lead in filtered = (leads | filter:searchLead) track by $index'>
+                <div class="leadIdContainer">
+                    <img src="images/eye.png" alt="" ng-click="goToScrutinyForm(lead)" class="oneView-scrotny-img">
+                    <label ng-bind-html="lead.X_AOF_ID | highlightSearch:searchLead">{{lead.X_AOF_ID}}</label><span>:</span>
+                    <label ng-bind-html="lead.X_AOF_NAME | highlightSearch:searchLead">{{lead.X_AOF_NAME}}</label>
+                </div>
+                <div class="leadDataContainer leadListContainer fvLeadDataContainer">
+                    <ul>
+                        <li ng-repeat="data in cardWebOn['FV_ATTR']">
+                            <label>{{data.ATTR_LABEL}} :</label>
+                            <!-- <pre>   {{data}}</pre> -->
+                            <label ng-attr-tool-tip="lead[data.ATTR_OBJ_NAME].length>21 ? lead[data.ATTR_OBJ_NAME]: ''" class="tool-tip-label" ng-if='data.ATTR_TYPE == "DATA"'>
+                                <!-- ng-class="{'dp-none': data.ATTR_LABEL == 'Exception Count'}" -->
+                                <label ng-if='data.ATTR_TYPE == "DATA"' ng-bind-html="lead[data.ATTR_OBJ_NAME] | highlightSearch:searchLead">
+                                    {{lead[data.ATTR_OBJ_NAME]}}
+                                </label>
+                            </label>
+                            <label ng-if='data.ATTR_TYPE == "GRID"' ng-click="getData(data, data.DETAIL_VIEW_TYPE,lead, lead[cardWebOn['PRIMARY_KEY_ATTRIBUTE1']])" class="countData">
+                                {{lead[data.ATTR_OBJ_NAME]}}
+                            </label>
+                            <label ng-if='data.ATTR_TYPE == "GALLERY"' ng-click="getData(data, data.DETAIL_VIEW_TYPE,lead, lead[cardWebOn['PRIMARY_KEY_ATTRIBUTE1']])" class="countData">
+                                {{lead[data.ATTR_OBJ_NAME]}}
+                            </label>
+                            <label ng-if='data.ATTR_TYPE == "EXCEPTION"' ng-if='data.ATTR_TYPE == "EXCEPTION"' ng-class="isFVActionBtnDisabled[lead.X_AOF_ID] == false?'zeroException':''" ng-click="getData(data, data.DETAIL_VIEW_TYPE, lead,lead[cardWebOn['PRIMARY_KEY_ATTRIBUTE1']],$parent.$parent.$index)" class="countData">
+                                {{lead[data.ATTR_OBJ_NAME]}}
+                            </label>
+                        </li>
+                    </ul>
+                </div>
+                <div class="leadActionContainer fvLeadActionContainer">
+                    <ul>
+                        <li ng-repeat="action in cardWebOn['FV_CARD_ACTION']" ng-style="getStyleAction(cardWebOn,$index)">
+                            <label><img src="images/{{action.ACTION_ICON}}.png"></label>
+                            <!-- ng-disable disabled Starts here -->
+                            <!-- <button ng-disabled="isFVActionBtnDisabled[lead['X_AOF_ID']]" ng-click="leadAction(action, cardData, lead, $parent.$index)" >{{action.ACTION_LABEL}}</button> -->
+                            <!-- ng-disable disabled ends here -->
+                            <button ng-click="leadAction(action, cardData, lead, $parent.$index)">{{action.ACTION_LABEL}}</button>
+                        </li>
+                    </ul>
+                </div>
+            </li>
+            <div ng-if="filtered.length==0" class="no-dta-found">No Data Found!!</div>
+        </ul>
+    </div>
+</leadContainer>

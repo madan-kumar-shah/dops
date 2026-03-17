@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<style>
+    .dmTimepickerBox{
+        position: relative;
+        top: -3px;
+        /*border-bottom:2px solid #114B8A;*/
+    }
+    .dmTimepickerBox .pickerBox{
+        display: block;
+        position: absolute;
+        /* top: 20px; */
+        left: 0;
+        padding: 0 5px;
+        background: #ffffff;
+        /* height: 150px; */
+        width: 200px;
+        /* overflow: scroll; */
+        z-index: 99;
+        box-shadow: 0 3px 3px 0px #d2d2d2;
+    }
+    .dmTimepickerBox .pickerBox.inverse{
+        bottom:30px;
+    }
+    .dmTimepickerBox .pickerBox .pickerTimeValue{
+        font-size: 2em;
+        color:#458FB6;
+    }
+    .dmTimepickerBox .pickerBox > div {
+        display: block;
+        text-align: center;
+        width: 100%;
+        margin: 2% 0;
+    }
+    .dmTimepickerBox .pickerBox .pickerWrapper{
+        position: relative;
+        width: 100%;
+        height: 100%;
+    }
+    .dmTimepickerBox .pickerBox > div input {
+        /*width: 100% !important;*/
+        width: 70% !important;
+        display: inline;
+    }
+    .dmTimepickerBox .pickerBox > div label{
+        margin: 0 2%;
+        font-size: 0.9em;
+        vertical-align: sub;
+        display: inline-block;
+    }
+    .dmTimepickerBox .pickerBox > div input[type=range] {
+        -webkit-appearance: none;
+        width: 70%;
+        margin: 6px 0;
+    }
+    .dmTimepickerBox .pickerBox > div input[type=range]:focus {
+        outline: none;
+    }
+    .dmTimepickerBox .pickerBox > div input[type=range]::-webkit-slider-runnable-track {
+        width: 100%;
+        height: 3px;
+        cursor: pointer;
+        box-shadow: 1px 1px 1px #d2d2d2, 0px 0px 1px #dfdfdf;
+        background: #d2d2d2;
+        border-radius: 0px;
+        border: 0px solid #d2d2d2;
+    }
+    .dmTimepickerBox .pickerBox > div input[type=range]::-webkit-slider-thumb {
+        box-shadow: 0px 0px 0px #d2d2d2, 0px 0px 0px #dfdfdf;
+        border: 0px solid #d2d2d2;
+        height: 15px;
+        width: 15px;
+        border-radius: 10px;
+        background: #458FB6;
+        cursor: pointer;
+        -webkit-appearance: none;
+        margin-top: -6px;
+    }
+    .dmTimepickerBox .pickerBox > div input[type=range]:focus::-webkit-slider-runnable-track {
+        background: #dfdfdf;
+    }
+    .dmTimepickerBox .pickerBox > div input[type=range]::-moz-range-track {
+        width: 100%;
+        height: 3px;
+        cursor: pointer;
+        box-shadow: 1px 1px 1px #d2d2d2, 0px 0px 1px #dfdfdf;
+        background: #d2d2d2;
+        border-radius: 0px;
+        border: 0px solid #d2d2d2;
+    }
+    .dmTimepickerBox .pickerBox > div input[type=range]::-moz-range-thumb {
+        box-shadow: 0px 0px 0px #d2d2d2, 0px 0px 0px #dfdfdf;
+        border: 0px solid #d2d2d2;
+        height: 15px;
+        width: 15px;
+        border-radius: 10px;
+        background: #458FB6;
+        cursor: pointer;
+    }
+    .dmTimepickerBox .pickerBox > div input[type=range]::-ms-track {
+        width: 100%;
+        height: 3px;
+        cursor: pointer;
+        background: transparent;
+        border-color: transparent;
+        color: transparent;
+    }
+    .dmTimepickerBox .pickerBox > div input[type=range]::-ms-fill-lower {
+        background: #c5c5c5;
+        border: 0px solid #d2d2d2;
+        border-radius: 0px;
+        box-shadow: 1px 1px 1px #d2d2d2, 0px 0px 1px #dfdfdf;
+    }
+    .dmTimepickerBox .pickerBox > div input[type=range]::-ms-fill-upper {
+        background: #d2d2d2;
+        border: 0px solid #d2d2d2;
+        border-radius: 0px;
+        box-shadow: 1px 1px 1px #d2d2d2, 0px 0px 1px #dfdfdf;
+    }
+    .dmTimepickerBox .pickerBox > div input[type=range]::-ms-thumb {
+        box-shadow: 0px 0px 0px #d2d2d2, 0px 0px 0px #dfdfdf;
+        border: 0px solid #d2d2d2;
+        height: 15px;
+        width: 15px;
+        border-radius: 10px;
+        background: #458FB6;
+        cursor: pointer;
+        height: 3px;
+    }
+    .dmTimepickerBox .pickerBox > div input[type=range]:focus::-ms-fill-lower {
+        background: #d2d2d2;
+    }
+    .dmTimepickerBox .pickerBox > div input[type=range]:focus::-ms-fill-upper {
+        background: #dfdfdf;
+    }
+    /*
+    
+        .dmTimepickerBox .pickerBox .pickerWrapper .radialBox{
+            position: relative;
+            width: 50%;
+            height: 66.66%;
+            text-align: center;
+        }
+        .dmTimepickerBox .pickerBox .pickerWrapper .radialBox ul{
+            position: relative;
+            width: 100%;
+            height: 100%;
+            margin: 0;
+            padding: 0;
+            transform: rotate(-90deg) translate(-50px) rotate(-0deg)
+        }
+        .radialBox ul li{
+            display: block;
+            position: absolute;
+            top: 50%; left: 50%;
+            width: 1em; height: 1em;
+            margin: 0;
+            font-size: 0.8em;
+        }
+        .radialBox ul li label{
+            margin: 0 5px;
+            border-radius: 100%;
+            padding: 1px 3px;
+        }
+        .radialBox ul li label:hover{
+            background: #114B8A;
+            color:#ffffff;
+            cursor: pointer;
+        }*/
+
+</style>
+
+<div class="dmTimepickerBox"
+     ng-style="stylefn()">
+    <input type="text"
+           placeholder="hh:mm"
+           class="inputField"
+           ng-disabled="pickerDisabled"
+           ng-focus="onTimepickerFocus()"
+           ng-blur="onTimepickerBlur()"
+           ng-model="timePickerModel"
+           dm-focus="isPickingTime==false"
+           ng-style="{'text-align': 'center'}"
+           ng-readonly="isPickerOpen"/>
+    <div class='pickerBox' ng-show="isPickerOpen == true" ng-class="{'inverse':isPickerInverse}">
+        <div class="pickerTimeValue">
+            {{hourPickerModel| toNDigits:2}}:{{minutesPickerModel| toNDigits:2}}
+        </div>
+        <div>
+            <label>
+                {{minHour|toNDigits:2}}
+            </label>
+            <input type="range" min="{{minHour}}" max="23" ng-model="hourPickerModel" ng-change="setTime()"/>
+            <label>
+                23
+            </label>
+        </div>
+        <div>
+            <label>
+                00
+            </label>
+            <input type="range" min="0" max="59" ng-model="minutesPickerModel" ng-change="setTime()"/>
+            <label>
+                59
+            </label>
+        </div>
+        <!--        <div class='pickerWrapper'>
+                    <div class='radialBox' ng-show="isPickingHour">
+                        <ul>
+                            <li ng-repeat="hour in timeHrData">
+                                <label ng-style="{transform: 'rotate('+$index*15+'deg) translate(60px) rotate('+(90-$index*15)+'deg)'}"
+                                       ng-mousedown="setHours(hour.value)">{{hour.value}}</label>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class='radialBox' ng-show="isPickingMinutes">
+                        <ul>
+                            <li ng-repeat="minutes in timeMinData">
+                                <label ng-style="minTransformStyle($index)"
+                                       ng-mousedown="setMinutes(minutes.value)">{{minutes.value}}</label>
+                            </li>
+                        </ul>
+                    </div>
+                </div>-->
+    </div>
+    <!--    <dmradialBox
+            numberList="0-23"
+            iterartor=""
+            themecolor="",
+            actionClick=""
+            >
+        </dmradialbox>
+        <dmradialBox
+            numberList="0-59"
+            iterartor="5"
+            themecolor="",
+            actionClick=""
+            >
+        </dmradialbox>-->
+</span>

@@ -1,0 +1,51 @@
+
+  <header class="pageHeader" ng-include src="'common/header/header.html'"></header>
+<loader ng-show="isLoading" ng-include src="'common/loader/loader.html'"
+></loader>
+<homeContainer ng-controller="homeCtrl">
+  <div class="filterContainer">
+    <div class="filters">
+      <div>
+        <label>
+          Workflow:
+        </label>
+        <label class="selectField">
+          <input
+            ng-model="selectedSource"
+            class="inputField"
+            type="text"
+            dm-search-list="source"
+            theme="ed1c24"
+            itemvalue="source_code"
+            modalType="value"
+            itemdesc="source_desc"
+            placeholder="Workflow"
+            id="source"
+            only-alpha
+          />
+          <!--                    <label for="source" class="searchListArrow"><i class="ion ion-ios-arrow-down"></i></label>-->
+        </label>
+      </div>
+    </div>
+  </div>
+  <div class="queuesContainer" >
+    <ul>
+      <li>
+        <div class="queue" ng-click="selectQueue(queue)">
+          <div class="queueCount">
+            <label>
+              {{queue.queue_count}}
+            </label>
+          </div>
+          <div class="queueName">
+            <label>
+              {{queue.queue_heading}}
+            </label>
+          </div>
+        </div>
+      </li>
+    </ul>
+  </div>
+</homeContainer>
+
+

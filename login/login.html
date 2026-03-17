@@ -1,0 +1,112 @@
+
+  <loader
+  ng-show="isLoading"
+  ng-include
+  src="'common/loader/loader.html'"
+></loader>
+
+<section class="back-bg">
+  <div class="Container" ng-controller="loginCtrl" id="as">
+    <div class="col-8 col-s-8 loginContainer">
+      <div class="dvuImage">
+        <!-- <img class="dvuImage_img" src="images/yBL_login.png" /> -->
+        <!-- <img
+          class="dvuImage_img2"
+          src="images/login_side.png"
+          width="300"
+          height="300"
+        /> -->
+         <img
+          class="dvuImage_img2"
+          src="images/logo_yes_aim_ca_1.png" width="80%"
+        />
+        
+        <p class="note">For better experience, open in chrome browser.</p>
+      </div>
+      <div class="loginSection">
+        <div class="logo-section">
+          <img class="dvuImage_img2" src="images/logo_yes_aim_ca_1.png" width="320" height="320" />
+        </div>
+        <div class="loginLogo">
+          <div class="main-login">
+            <div
+            class="login_azure_cred"
+            ng-click="ChangeLogin('azure')"
+            ng-if="!loginAzure"
+            >Login with Azure</div>
+
+          <div
+            class="login_azure_cred"
+            ng-click="ChangeLogin('credential')"
+            ng-if="loginAzure"
+            >Login with credentials</div>
+          </div>
+        </div>
+        <form name="formLogin" ng-submit="" class="form-section" novalidate autocomplete="off">
+          <div class="loginForm">
+            <span ng-if="loginAzure">
+              <h1>Welcome to YES Bank DOPS</h1>
+            </span>
+            <span ng-if="!loginAzure">
+              <!-- <p>Provide the login credentials below.</p> -->
+              <div class="loginFields floating-label">
+                <input
+                  type="text"
+                  ng-model="p.username"
+                  required
+                  placeholder=" "
+                  class="floating-input"
+                  name="name"
+                  id="name"
+                  onpaste="return false;"
+                  autocomplete="off"
+                  onkeypress="return /^[a-zA-Z0-9_ ]*$/i.test(event.key)"
+                  autofocus
+                />
+                <label class="label-float">Username</label>
+                <span
+                  ng-if="formLogin.name.$invalid && showErrorUser"
+                  class="highlight"
+                  >Username should not be empty</span
+                >
+              </div>
+              <div class="loginFields floating-label floating-password-div">
+                <input
+                  type="password"
+                  required
+                  ng-model="p.password"
+                  placeholder=" "
+                  onpaste="return false;"
+                  autocomplete="off"
+                  class="floating-input"
+                  name="password"
+                  id="password"
+                 
+                />
+                <label class="label-float">Password</label>
+                <span
+                  ng-if="formLogin.password.$invalid && showErrorPassword"
+                  class="highlight"
+                  >Password should not be empty</span
+                >
+              </div>
+            </span>
+            <div class="loginFields loginBtn">
+              <button id="loginButton" type="submit" ng-click="login()">
+                Login
+              </button>
+            </div>
+            <div class="note1">
+              <p>
+                Powered by
+                <img src="images/decimal_logo.png" width="80" heigth="13" />
+              </p>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</section>
+
+

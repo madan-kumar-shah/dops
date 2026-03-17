@@ -1,0 +1,124 @@
+li{
+    list-style: none;
+}
+queueContainer{
+    display: block;
+    width: 100%;
+    height: 85%;
+    padding: 10px 0;
+}
+.allQueues, .sortContainer{
+    display: inline-block;
+    height: 95%;
+    vertical-align: top;
+}
+.allQueues{
+    width: 25%;
+    background: #f6f6f6;
+}
+.allQueuesHeader{
+    font-size: 14px;
+}
+.sortContainer{
+    width: 74%;
+    text-align:center;
+    text-align: center;
+}
+.allQueuesContainer{
+    width: 80%;
+    height: 85%;
+    padding: 10%;
+    color: #323232;
+    font-family: 'Nunito-Bold'
+}
+.listContainer{
+    width:100%;
+    margin: 20% 0 0;
+    font-size: 14px;
+    height:85%;
+}
+.listContainer li{
+    list-style: none;
+    padding: 5px 10px;
+    margin: 5% 0;
+    border-radius: 8px;
+    background-color: #ffffff;
+    box-shadow: 1px 1px 10px 0 rgba(0, 0, 0, 0.1);
+    position: relative;
+}
+
+.cardContainer{
+    width: 90%;
+    background:#b3d4fc;
+    height:80%;
+    background-color: #f6f6f6;
+    box-shadow: 1px 1px 12px 0 rgba(0, 0, 0, 0.2);
+    /* padding: 20px; */
+    margin: 6% auto;
+    /* transform: translate(100px, 50px); */
+}
+.sortQueueContainer{
+    width: 95%;
+    height:90%;
+    padding:20px;
+}
+.sortContainer ul{
+    height:100%;
+    width:100%;
+}
+.sortContainer li{
+    display: inline-block;
+    width: 16%;
+    height: 32%;
+    position: relative;
+    margin: 20px 15px;
+    border-radius: 8px;
+    vertical-align: top;
+    background-color: #f6f6f6;
+    box-shadow: 1px 1px 10px 0 rgba(0, 0, 0, 0.1);
+}
+
+.sortContainer .sortQueueImg{
+    text-align: center;
+    height: 50%;
+    padding: 10px 0 0;
+}
+.sortQueueImg img{
+    height:50px;
+}
+.sortContainer .sortQueueLabel{
+    height: 43%;
+    text-align: center;
+    border-radius: 8px;
+    background-color: #ffffff;
+    box-shadow: 1px 1px 10px 0 rgba(0, 0, 0, 0.1);
+    font-size: 14px;
+}
+.sortQueueLabel label{
+    display: inline-block;
+    padding: 10px;
+}
+.closeQueue{
+    position: absolute;
+    right: -5px;
+    top: -7px;
+}
+.sortContainerFooter {
+    margin: 20px 10px;
+    text-align: right;
+}
+.sortContainer button{
+    width: 150px;
+    height: 40px;
+    border-radius: 4px;
+    background-color: #333333 !important;
+}
+
+@media only screen and (max-width: 768px){
+    .form-input-section input {
+      width: 94%;
+      color: black;
+      background-color: #f2f2f2;
+      border: none;
+      height: 24px;
+  }}

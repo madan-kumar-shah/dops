@@ -1,0 +1,614 @@
+<header class="pageHeader" ng-include src="'common/header/header.html'"></header>
+<loader ng-show="isLoading" ng-include src="'common/loader/loader.html'"></loader>
+<homeContainer ng-controller="homeCtrl">
+  <div class="queuesContainer" ng-if='username !=="EXCEL1"'>
+    <div class="advanceAndLocalSearchContainer advanceAndLocalSearchContainer-home">
+      <div class="download_reports" ng-if="getReportRoleFlag()">
+        <span ng-if="loginServiceData[0].system_role == 'ACC'">
+          <button ng-click="ExcelFileUpload_open()" class="check_iscan_anchor">Upload</button> &nbsp;&nbsp;&nbsp;</span> 
+        <!-- <span ng-show="true" ng-click="IScan_status_fun();"><a class="check_iscan_anchor">Check IScan</a></span> -->
+        <span ng-show="true">&nbsp;&nbsp;&nbsp;</span>
+        <span class="diplayDownloadreports" ng-click="download_reports_fun();"
+          ><a class="download_anchor_a">Download</a> <img class="margin_5" src="images/group_download.png"
+        /></span>
+        <div class="display-disclamer-mobile">Use Desktop to download reports</div>
+      </div>
+      <div class="advanceSearchLabel advanceSearch_div">
+        <span class="pointer" ng-click="testforUser();advancefadinOverlay=true">
+          <img src="images/search-new.svg" /><label class="advanceSearch_image_label">Search Lead/Case</label></span
+        >
+      </div>
+    </div>
+
+    <!-- Global search starts here -->
+    <cardContainerOverlay ng-show="advancefadinOverlay" class="cardContainerOverlay-home">
+      <div class="searchPopup">
+        <div class="advanced-search-container">
+          <div class="advanced-search">
+            <!-- <div class="global-search-header">Global search</div> -->
+            <form name="search_form" action="">
+              <div class="form-container-smartsearch db-advance-show">
+                <div class="header_popup">
+                  <h2 class="header_popup_h3">Search</h2>
+                  <img
+                    src="images/closeQueue.svg"
+                    class="image_close"
+                    ng-click="closeAdvanceBox();advancefadinOverlay=false"
+                    width="15"
+                    height="15"
+                  />
+                </div>
+                <div class="formBody">
+                  <form class="formBody">
+                    <div class="formField" ng-repeat="srch in queueD['SEARCH_AOF']|orderBy: 'param_seq'">
+                      <label>{{srch.param_name}}</label>
+                      <input
+                        type="text"
+                        name="{{srch.param_name}}"
+                        value="{{srch.param_name}}"
+                        validate="{{srch}}"
+                        ng-model="user[''+srch.json_name+'']"
+                      />
+                      <p
+                        class="search_popup_para"
+                        ng-if="search_form[srch.param_name].$modelValue && search_form[srch.param_name].$invalid"
+                      >
+                        {{search_form[srch.param_name].$error.errorMessage}}
+                      </p>
+                    </div>
+                    <div class="resetNshowresult">
+                      <div class="reset">
+                        <button
+                          id="resetButton"
+                          type="button"
+                          ng-disabled="disbledButton('RESET');"
+                          ng-click="resetAdvance()"
+                        >
+                          Reset
+                        </button>
+                      </div>
+                      <div class="showresult">
+                        <button
+                          id="searchbutton"
+                          type="button"
+                          ng-disabled="disbledButton('SEARCH');"
+                          ng-click="submitAdvance()"
+                        >
+                          Show Result
+                        </button>
+                      </div>
+                    </div>
+                  </form>
+                </div>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </cardContainerOverlay>
+
+    <cardContainerOverlay ng-show="showGridContainer" class="cardContainerOverlay-home">
+      <gridContainer class="transition grid-container" ng-show="showGridContainer ">
+        <div class="gridHeader">
+          <label>
+            <span>
+              <img src="images/closeQueue.svg" ng-click="closeDataContainerDm()" />
+            </span>
+          </label>
+        </div>
+        <div class="gridDataContainer">
+          <div class="header_popup">
+            <img class="back_button_image" ng-click="backDataContainerDm()" src="images/back_button2.png" />
+            <h3 class="search_h3">Search Results</h3>
+          </div>
+          <div class="gridViewData">
+            <div class="dm-container-laedScrrtny">
+              <!-- <dm-table dm-theme="0560a6 " dm-showing-pagination="true" dm-color="ffffff " dm-datasource="tabChildGridData " dm-table-data-actions="dmTableDataActions " dm-theme="#0560a6 "dm-column-actions="dmColumnActions" dm-searchable="false " dm-table-heading="tableHeading" dm-row-action="dmColumnActions" dm-download-btn="false " dm-table-config="tabTableConfig ">
+                            </dm-table>  -->
+              <dm-table
+                dm-datasource="tabChildGridData"
+                dm-searchable="true"
+                dm-color="0560a6"
+                dm-showing-pagination="true"
+                dm-theme="ffffff"
+                dm-table-config="tableConfig"
+                dm-column-actions="dmColumnActions"
+                dm-sortable="false"
+                dm-csv-excel-button-color="0560a6"
+                dm-download-btn="true"
+              >
+              </dm-table>
+            </div>
+          </div>
+          <!--<div class="gridViewActions ">table
+                        <button ng-click="closeDataContainerDm() ">Done</button>
+                    </div>-->
+        </div>
+      </gridContainer>
+    </cardContainerOverlay>
+    <!-- Global search Ends here -->
+    <div class="que-list">
+      <!-- <div>
+                <img ng-click="goToSortQueues()" src="images/all-queues.png">
+            </div> -->
+    </div>
+    <ul>
+      <li ng-repeat="queue in queues track by $index">
+        <div class="queue" ng-click="selectQueue(queue)">
+          <div class="queueIconContainer queueIconContainer-dvu">
+            <div class="queueIcon">
+              <img src="images/{{queue.queue_icon}}.svg" />
+            </div>
+          </div>
+          <div class="queueName queueName-dvu">
+            <div class="queueCount">
+              <ul class="queueCount-ul">
+                <li ng-repeat="count in QueueCount" ng-if="count.QUEUE_COUNT[0]['x_queue_id']==queue['queue_id']">
+                  {{count.QUEUE_COUNT[0]['value']}}
+                </li>
+                <!-- <li ng-repeat="count in queueCount" ng-if="count['queue_id']!=queue['queue_id']">{{0}}</li> -->{{count.QUEUE_COUNT[0]['value']}}
+              </ul>
+            </div>
+            <div class="queueHeading queueHeading-dvu">
+              <label> {{queue.queue_heading}} </label>
+            </div>
+          </div>
+        </div>
+      </li>
+    </ul>
+
+    <cardContainerOverlay ng-show="download_reports_popup || Iscan_check_popup || ExcelFileUploadPopup" class="cardContainerOverlay-home">
+      <div class="searchPopup">
+        <div class="advance_download_report">
+          <div class="advanced-search">
+            <!-- <div class="global-search-header">Global search</div> -->
+            <div ng-switch="current_popup_name" class="form-container-smartsearch db-advance-show">
+              <div ng-switch-when="download_reports_popup" class="header_popup">
+                <h2 class="head__h2">Download</h2>
+                <img
+                  src="images/closeQueue.svg"
+                  class="close_queue"
+                  ng-click="close_download_reports();report.radioSelection='REPORT'"
+                  width="15"
+                  height="15"
+                />
+              </div>
+
+              <!-- <div ng-switch-when="Iscan_check_popup" class="header_popup">
+                <h2 class="head__h2">Check IScan</h2>
+                <img
+                  src="images/closeQueue.svg"
+                  class="close_queue"
+                  ng-click="IScan_status_close();"
+                  width="15"
+                  height="15"
+                />
+              </div> -->
+              <div ng-switch-when="ExcelFileUploadPopup" class="header_popup">
+                <h2 class="head__h2">Upload File</h2>
+                <img
+                  src="images/closeQueue.svg"
+                  class="close_queue"
+                  ng-click="ExcelFileUpload_close();"
+                  width="15"
+                  height="15"
+                />
+              </div>
+
+              <div class="formBody">
+                <form ng-switch-when="download_reports_popup" class="formBody ownBody" name="report_form">
+                  <div #radiobuttons ng-if="loginServiceData[0].system_role == 'ACC'">
+                    <div class="formField2 selectRadio">
+                      <input type="radio" name="" id="reports" value="REPORT" ng-model="report.radioSelection" />
+                      <label class="gefulabel2" for="reports">Reports</label>
+                    </div>
+                    <div class="formField2 selectRadio">
+                      <input type="radio" name="" id="GEFU" value="GEFU" ng-model="report.radioSelection" />
+                      <label class="gefulabel2" for="GEFU">GEFU</label>
+                    </div>
+                    <div class="formField2 selectRadio">
+                      <input type="radio" name="" id="download" value="DOWNLOADALL" ng-model="report.radioSelection" />
+                      <label class="gefulabel2" for="download">Download All GEFU</label>
+                    </div>
+                    <!-- AUTO GEFU -->
+                    <div class="formField3 selectRadio2">
+                      <input type="radio" name="" id="download2" value="DOWNLOADALL3" ng-model="report.radioSelection" />
+                      <label class="gefulabel3" for="download"> Download All Pending GEFU</label>
+                    </div>
+                    <div class="formField3 selectRadio2">
+                      <input type="radio" name="" id="download3" value="DOWNLOADALL4" ng-model="report.radioSelection" />
+                      <label class="gefulabel3" for="download"> Download All SIGN</label>
+                    </div>
+                    <div class="formField3 selectRadio2">
+                      <input type="radio" name="" id="download4" value="DOWNLOADALL5" ng-model="report.radioSelection" />
+                      <label class="gefulabel3" for="download"> Download All Pending SIGN</label>
+                    </div>
+                    
+                    <!-- <div class="formField2 selectRadio2">
+                      <input type="radio" name="" id="download2" value="DOWNLOADALL2" ng-model="report.radioSelection" />
+                      <label class="gefulabel" for="download"> Download Saving & Ind. CA gefu</label>
+                    </div> -->
+                    <div class="formField3 selectRadio2">
+                      <input type="radio" name="" id="SA" value="SA" ng-model="report.radioSelection" />
+                      <label class="gefulabel3" for="SA"> Download SA GEFU</label>
+                    </div>
+                  </div>
+                  <span ng-if="report.radioSelection=='SA'">
+                    <div class="formField">
+                      <label>Case ID</label>
+                      <input
+                        type="text"
+                        name="lead_id"
+                        value="lead_id"
+                        ng-model="report.lead_id"
+                        ng-maxlength="12"
+                        ng-minlength="12"
+                        maxlength="12"
+                      />
+                      <p class="search_popup_para" ng-if="report_form.lead_id.$invalid">Please enter valid Case ID.</p>
+                    </div>
+                    <div class="resetNshowresult align_center">
+                      <button
+                        id="download_reportbutton"
+                        type="button"
+                        ng-disabled="!report.lead_id"
+                        ng-click="download_GEFU_SA()"
+                      >
+                        Download
+                      </button>
+                    </div>
+                  </span>
+                  <span ng-if="report.radioSelection=='GEFU'">
+                    <div class="formField">
+                      <label>Case ID</label>
+                      <input
+                        type="text"
+                        name="lead_id"
+                        value="lead_id"
+                        ng-model="report.lead_id"
+                        ng-maxlength="12"
+                        ng-minlength="12"
+                        maxlength="12"
+                      />
+                      <p class="search_popup_para" ng-if="report_form.lead_id.$invalid">Please enter valid Case ID.</p>
+                    </div>
+                    <div class="resetNshowresult align_center">
+                      <button
+                        id="download_reportbutton"
+                        type="button"
+                        ng-disabled="!report.lead_id"
+                        ng-click="download_GEFU()"
+                      >
+                        Download
+                      </button>
+                    </div>
+                  </span>
+
+                  <span ng-if="report.radioSelection=='DOWNLOADALL'">
+                    <div class="resetNshowresult align_center">
+                      <button id="download_reportbutton" type="button" ng-click="download_All('success')">Download All</button>
+                    </div>
+                  </span>
+                  <!-- <span ng-if="report.radioSelection=='DOWNLOADALL2'">
+                    <div class="resetNshowresult align_center">
+                      <button id="download_reportbutton" type="button" ng-click="download_All_SA_Individual()">Download All</button>
+                    </div> -->
+                    <span ng-if="report.radioSelection=='DOWNLOADALL3'">
+                      <div class="resetNshowresult align_center">
+                        <button id="download_reportbutton" type="button" ng-click="download_All('Fail')">Download All</button>
+                      </div>
+                    </span>
+                    <span ng-if="report.radioSelection=='DOWNLOADALL4'">
+                      <div class="resetNshowresult align_center">
+                        <button id="download_reportbutton" type="button" ng-click="download_All_Sign('success')">Download All</button>
+                      </div>
+                    </span>
+                    <span ng-if="report.radioSelection=='DOWNLOADALL5'">
+                      <div class="resetNshowresult align_center">
+                        <button id="download_reportbutton" type="button" ng-click="download_All_Fail_Sign('Fail')">Download All</button>
+                      </div>
+                    </span>
+                  </span>
+                  <span ng-if="report.radioSelection=='REPORT'">
+                    <div class="formField">
+                      <label>Constitution Type</label>
+                      <select
+                        ng-model="reportConstitutionalType"
+                        class="select_report"
+                        ng-change="get_constitutional_type(reportConstitutionalType)"
+                      >
+                        <option value="SELECT">SELECT</option>
+                        <option ng-repeat="item in leadSource" ng-value="item">{{item}}</option>
+                      </select>
+                    </div>
+                  </span>
+
+                  <span ng-if="report.radioSelection=='REPORT'">
+                    <div class="formField">
+                      <label>Select Report</label>
+                      <select
+                        ng-model="report.report_name"
+                        class="select_report"
+                        ng-change="showStartdate(report.report_name)"
+                      >
+                        <option
+                          value="{{list.report_id}},{{list.report_type}},{{list.report_desc}}"
+                          ng-repeat="list in report_list"
+                        >
+                          {{list.report_desc}}
+                        </option>
+                      </select>
+                    </div>
+                    <div ng-if="test2" class="formField">
+                      <label>Start Date</label>
+                      <input
+                        type="text"
+                        id="datepicker"
+                        autocomplete="off"
+                        pikaday="myPickerObject"
+                        placeholder="DD-MM-YYYY"
+                        min-date="{{startScope}}"
+                        max-date="{{new_today}}"
+                        ng-change="change()"
+                        on-select="setDateRange(myPickerObject)"
+                        name="Start_date"
+                        value="Start_date"
+                        ng-model="report.Start_date"
+                        dm-format-date
+                      />
+                      <p
+                        class="search_popup_para"
+                        ng-if="report_form.Start_date.$viewValue && report_form.Start_date.$invalid"
+                      >
+                        Please enter valid date.
+                      </p>
+                    </div>
+                    <div ng-if="test1" class="formField">
+                      <label>End Date</label>
+                      <input
+                        type="text"
+                        id="datepicker2"
+                        autocomplete="off"
+                        pikaday="endDatepicker"
+                        placeholder="DD-MM-YYYY"
+                        min-date="{{startDateLimit}}"
+                        max-date="{{test}}"
+                        name="end_date"
+                        value="end_date"
+                        ng-model="report.end_date"
+                        dm-format-date
+                      />
+                      <p
+                        class="search_popup_para"
+                        ng-if="report_form.end_date.$viewValue && report_form.end_date.$invalid"
+                      >
+                        Please enter valid date.
+                      </p>
+                    </div>
+
+                    <div ng-show="showTAble" id="example"></div>
+                    <div class="resetNshowresult align_center">
+                      <button
+                        id="download_reportbutton"
+                        type="button"
+                        ng-disabled="download_disable();"
+                        ng-click="getReport_Column()"
+                      >
+                        Download
+                      </button>
+                    </div>
+                  </span>
+                </form>
+                <form  ng-submit="ExcelFileUpload_close();chooseFile();" ng-switch-when = "ExcelFileUploadPopup" class="formBody2 ownBody2" name="ExcelFileUpload_form">
+                  <span>
+                    <input type="file" id="ExcelDoc" name="filename2" class="ExcelFile" accept=".xlsx, .xls" ngf-max-size="'1MB'">
+                    <button type="submit" class="ExcelFileButton">Upload</button> <br><br>
+                  </span>
+                  </form>
+                  
+                <form ng-switch-when="Iscan_check_popup" class="formBody ownBody" name="IScan_form">
+                  <span>
+                    <div class="formField">
+                      <label>Constitution Type</label>
+                      <select
+                        name="constitution-type"
+                        ng-model="ct_type"
+                        class="select_report"
+                        ng-change="changeIScan_fields(ct_type)"
+                      >
+                        <option value="SELECT" selected>SELECT</option>
+                        <option value="SOLECANTB">SOLECANTB</option>
+                        <option value="COMPANY">COMPANY</option>
+                        <option value="INDIVIDUAL">INDIVIDUAL</option>
+                        <option value="OTHER">OTHER</option>
+                      </select>
+                    </div>
+                  </span>
+
+                  <!-- {{Iscan_fields}} -->
+                  <!-- {{ct_type}} -->
+
+                  <span ng-switch="item.type" ng-repeat="item in Iscan_fields|orderBy: item.id">
+                    <div ng-switch-when="select" class="formField">
+                      <label
+                        >{{item.label}}
+                        <span ng-show="getRequired_fields(item.key)" class="mandatory_star">*</span>
+                      </label>
+                      <select
+                        name="{{item.key}}"
+                        ng-model="fields_model[item.key]"
+                        class="select_report"
+                        ng-change=""
+                        ng-required="getRequired_fields(item.key)"
+                        ng-style="{ 'background-color' : (IScan_form[item.key].$touched 
+                        && IScan_form[item.key].$error.required) ? '#ffe6e6' : '' }"
+                      >
+                        <option value="" selected>SELECT</option>
+                        <option ng-repeat="option in item.options" ng-value="option.value">{{option.label}}</option>
+                      </select>
+                    </div>
+
+                    <div ng-switch-when="text" class="formField">
+                      <label
+                        >{{item.label}}
+                        <span ng-show="getRequired_fields(item.key)" class="mandatory_star">*</span>
+                      </label>
+                      <input
+                        ng-if="item.key === 'id_number'"
+                        name="{{item.key}}"
+                        ng-model="fields_model[item.key]"
+                        type="text"
+                        value=""
+                        ng-style="{ 'border-bottom' : (IScan_form[item.key].$touched 
+                        && IScan_form[item.key].$error.required) || 
+                        (IScan_form[item.key].$touched 
+                        && IScan_form[item.key].$invalid) ? '1.5px solid red' : '' }"
+                        ng-required="getRequired_fields(item.key)"
+                        ng-pattern="item.pattern"
+                        ng-readonly="{{item.key === 'city' || item.key === 'state'}}"
+                        limit-to="11"
+                        ng-change="checkPAN_number(item.key,fields_model[item.key])"
+                      />
+                      <input
+                        ng-if="item.key !== 'id_number'"
+                        name="{{item.key}}"
+                        ng-model="fields_model[item.key]"
+                        type="text"
+                        value=""
+                        ng-style="{ 'border-bottom' : (IScan_form[item.key].$touched 
+                        && IScan_form[item.key].$error.required) || 
+                        (IScan_form[item.key].$touched 
+                        && IScan_form[item.key].$invalid) ? '1.5px solid red' : '' }"
+                        ng-required="getRequired_fields(item.key)"
+                        ng-pattern="item.pattern"
+                        ng-readonly="{{item.key === 'city' || item.key === 'state'}}"
+                      />
+                    </div>
+
+                    <div ng-switch-when="number" class="formField">
+                      <label
+                        >{{item.label}}
+                        <span ng-show="getRequired_fields(item.key)" class="mandatory_star">*</span>
+                      </label>
+                      <input
+                        ng-if="item.key === 'mobile'"
+                        name="{{item.key}}"
+                        ng-model="fields_model[item.key]"
+                        type="number"
+                        value=""
+                        ng-change="checkMobile(item.key,fields_model[item.key])"
+                        ng-style="{ 'border-bottom' : (IScan_form[item.key].$touched 
+                        && IScan_form[item.key].$error.required) || 
+                        (IScan_form[item.key].$touched 
+                        && IScan_form[item.key].$invalid) ? '1.5px solid red' : '' }"
+                        ng-required="getRequired_fields(item.key)"
+                        min="7000010000"
+                        max="9999999999"
+                        limit-to="10"
+                      />
+                      <input
+                        ng-if="item.key === 'pincode'"
+                        name="{{item.key}}"
+                        ng-model="fields_model[item.key]"
+                        type="number"
+                        value=""
+                        ng-change="getCity_Pincode(item.key,fields_model[item.key])"
+                        ng-style="{ 'border-bottom' : (IScan_form[item.key].$touched 
+                        && IScan_form[item.key].$error.required) || 
+                        (IScan_form[item.key].$touched 
+                        && IScan_form[item.key].$invalid) ? '1.5px solid red' : '' }"
+                        ng-required="getRequired_fields(item.key)"
+                        min="100000"
+                        max="999999"
+                        limit-to="6"
+                      />
+                    </div>
+
+                    <div ng-switch-when="date" class="formField">
+                      <label
+                        >{{item.label}}
+                        <span ng-show="getRequired_fields(item.key)" class="mandatory_star">*</span>
+                      </label>
+                      <input
+                        id="{{item.key}}"
+                        name="{{item.key}}"
+                        ng-model="fields_model[item.key]"
+                        type="date"
+                        value=""
+                        min="1800-01-01"
+                        max="2022-01-01"
+                        ng-style="{ 'border-bottom' : (IScan_form[item.key].$touched 
+                        && IScan_form[item.key].$error.required) || 
+                        (IScan_form[item.key].$touched 
+                        && IScan_form[item.key].$invalid) ? '1.5px solid red' : '' }"
+                        ng-required="getRequired_fields(item.key)"
+                      />
+                    </div>
+                  </span>
+
+                  <div class="resetNshowresult align_center">
+                    <button
+                      id="download_reportbutton"
+                      type="button"
+                      ng-disabled="IScan_form.$invalid"
+                      ng-click="getCreditFacility_Summary(ct_type)"
+                    >
+                      Check IScan
+                    </button>
+                  </div>
+
+                  <div ng-show="ct_type !== 'SELECT'" class="formField">
+                    <label>Credit Facility Summary</label>
+                    <input
+                      ng-style="{ border : (credit_iscan_summary !== '') ? 'none' : 'none' }"
+                      name="credit_summary"
+                      ng-model="credit_iscan_summary"
+                      type="text"
+                      value=""
+                      readonly
+                    />
+                  </div>
+                </form>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- <div class="close">
+                    <span>
+                    <img src="images/close.png" ng-click="closeGlobalsearch()" width="25" height="22">
+                </span>
+                </div> -->
+      </div>
+    </cardContainerOverlay>
+  </div>
+
+  <div ng-if='username ==="EXCEL1"'>
+    <h1 class="excel1_h1">Excel Data Upload</h1>
+    <div class="pad_top_5per">
+      <div class="display_block align_center">
+        <input type="file" id="fileUpload" class="custom-file-input" placeholder="Upload Excel" />
+        <input type="button" id="upload" value="Upload" ng-click="Upload()" class="excel_upload_input" />
+        <hr />
+
+        <div class="all-correct correct_div" ng-if="incorrect===0 && correct>0">
+          Excel uploaded successfully! All records are correct and can be moved to staging.
+        </div>
+        <div class="in-correct font_s_15" ng-if="incorrect>0 && correct>=0">
+          Excel uploaded successfully!
+          <span class="incorrect_records">We have found {{incorrect}} incorrect records.</span>
+        </div>
+        <div id="dvExcel"></div>
+      </div>
+      <div ng-controller="myCtrl" ng-if='username ==="EXCEL1"' class="display_block align_center">
+        <button ng-click="exportData()" class="export_data_button">Download Sample Excel Template</button>
+        <button class="export_data_button" ng-click="downloadExcelData()" ng-disabled="myButton">
+          Download Staging Data
+        </button>
+        <button class="export_data_button" ng-disabled="myButton" ng-click="pushToMaster()">Push to master</button>
+        <button class="export_data_button" ng-click="sendSms()">Send SMS to users</button>
+
+        <br />
+      </div>
+    </div>
+  </div>
+</homeContainer>

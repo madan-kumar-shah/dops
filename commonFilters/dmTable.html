@@ -1,0 +1,1061 @@
+<style>
+  dm-table {
+    display: block;
+  }
+
+  dmTableContainer {
+    display: block;
+    width: 100%;
+    /*max-height: 286px;
+    overflow-y: scroll;*/
+    height: 200px;
+    overflow: auto;
+    margin: 10px 0;
+    /*overflow: auto;*/
+    padding-top: 0px;
+    /*overflow-x: scroll;*/
+    margin-top: 2%;
+    /*        -webkit-user-select: none;   Chrome all / Safari all 
+        -moz-user-select: none;      Firefox all 
+        -ms-user-select: none;       IE 10+ 
+        user-select: none;           Likely future       */
+  }
+
+  dmTableContainer dmTable,
+  dmTableContainer td {
+    text-align: center;
+    border: 1px solid #e2e2e2;
+    border-collapse: collapse;
+    padding: 2px 7px;
+  }
+
+  dmTableContainer th {
+    position: relative;
+    text-align: center;
+    text-transform: uppercase;
+    /* padding: 18px 20px 14px 7px /*12px 20px 10px 7px*/
+  }
+
+  dmTableContainer th .dmSortingArrows {
+    position: absolute;
+    top: 50%;
+    right: 2px;
+    cursor: pointer;
+    transform: translateY(-50%) rotate(90deg);
+    -webkit-transform: translateY(-50%) rotate(90deg);
+    -moz-transform: translateY(-50%) rotate(90deg);
+    -ms-transform: translateY(-50%) rotate(90deg);
+    /*        transform: rotate(90deg);
+                -webkit-transform: rotate(90deg);
+                -moz-transform: rotate(90deg);
+                -ms-transform:rotate(90deg);*/
+  }
+
+  dmTableContainer th .dmSortingArrows .disableSort {
+    color: #d2d2d2;
+  }
+
+  .dmHighlighted {
+    background-color: #ff0;
+  }
+
+  dmTableContainer th .dmSortingArrows > span {
+    display: inline-block;
+    font-size: 1.1em;
+    padding: 3px;
+    margin: -4px 0px 0px 1px;
+  }
+
+  dmTableContainer th > label {
+    display: inline-block;
+    vertical-align: top;
+    white-space: nowrap;
+    text-transform: capitalize;
+    /*padding: 7px;*/
+    margin: 0;
+    font-size: 0.9em;
+  }
+
+  dmTableContainer dmTableBody {
+    display: block;
+    width: 99%;
+    margin-top: 10px !important;
+  }
+
+  dmTableContainer dmTableBody table {
+    margin: 0 auto;
+    width: 100%;
+  }
+
+  dmTableContainer table tbody td {
+    font-size: 0.9em;
+    color: #4e4e4e;
+    padding: 8px 5px;
+    font-family: Roboto Regular;
+  }
+
+  dmTableContainer table tbody td label label {
+    font-size: 20px;
+    position: relative;
+    left: 20%;
+    height: 20px;
+  }
+
+  dmTableContainer table tbody td label label i {
+    cursor: pointer;
+  }
+
+  table tbody td input[type="checkbox"] {
+    visibility: visible;
+  }
+
+  dmTableDataPagination {
+    display: inline-block;
+    width: 48%;
+    margin: auto;
+    vertical-align: top;
+  }
+
+  dmTableDataPagination ul {
+    width: 36%;
+    white-space: nowrap;
+    list-style: none;
+    margin: 0px;
+    padding: 0px;
+    display: block;
+  }
+
+  dmTableDataPagination ul li {
+    font-weight: bold;
+    font-size: 17px;
+    cursor: pointer;
+    display: inline-block;
+    margin: 0 2px;
+    padding: 0px 0px;
+    /*//width: 40px;*/
+    /*height: 20px;*/
+    text-align: center;
+    vertical-align: top;
+  }
+
+  dmTableDataPagination ul li input {
+    width: 60px;
+    text-align: center;
+    border: none;
+  }
+
+  dmTableDataPagination ul li input:focus {
+    border: none;
+    outline: none;
+  }
+
+  dmTableDataActions {
+    display: inline-block;
+    width: 48%;
+    text-align: left;
+  }
+
+  dmTableDataActions button {
+    margin: 2% 0 0 0;
+  }
+
+  dmTableTabsContainer {
+    display: block;
+    width: 98%;
+    height: 40px;
+    margin: auto;
+    background-color: #d2d2d2;
+  }
+
+  dmTableTabsContainer ul {
+    width: 100%;
+    margin: 0px;
+    padding: 0px;
+    list-style: none;
+  }
+
+  dmTableTabsContainer ul li {
+    display: inline-block;
+    padding: 10px 10px;
+    cursor: pointer;
+    text-transform: capitalize;
+  }
+
+  dmTableTabsContainer ul li:not(:last-child) {
+    border-right: 1px solid #e2e2e2;
+  }
+
+  dmTableOptionsContainer {
+    display: block;
+    width: 98%;
+    margin: 10px auto;
+  }
+
+  /*    dmTableOptionsContainer.dmTableOptionHeader{
+            display: none;
+        }*/
+  dmTableOptionsContainer {
+    margin-top: 2%;
+  }
+  dmTableOptionsContainer > div {
+    display: inline-block;
+  }
+  .dmDownloadOptnsContainer {
+    width: 30%;
+    text-align: right;
+  }
+
+  .dmDownloadOptnsContainer > a {
+    display: inline-block;
+    margin: 0 2%;
+    padding: 1% 5%;
+    cursor: pointer;
+    text-align: center;
+  }
+
+  .dmDownloadOptnsContainer > a > label {
+    display: inline-block;
+    font-size: 0.75em;
+    cursor: pointer;
+    -ms-transform: rotate(90deg);
+    -webkit-transform: rotate(90deg);
+    -moz-transform: rotate(90deg);
+    transform: rotate(90deg);
+  }
+
+  .dmPageItemsContainer {
+    color: #919191;
+    width: 30%;
+  }
+
+  .dmPageItemsContainer > label {
+    display: inline-block;
+    margin-left: 10px;
+  }
+
+  .dmSearchContainer {
+    /*        float: right;
+                margin-bottom: 8px;
+                width: 20%;
+                text-align: right;*/
+    float: right;
+    margin-top: -30px;
+    margin-bottom: 8px;
+    width: 20%;
+    position: relative;
+    margin-right: -5px;
+    padding: 2px;
+    text-align: right;
+  }
+
+  .dmSearchContainer input {
+    width: 100%;
+    padding: 6px;
+    outline: none;
+  }
+
+  .active {
+    border-bottom: 2px solid #ff0000;
+  }
+
+  nodata {
+    display: block;
+    width: 100%;
+    text-align: center;
+    color: #c2c2c2;
+    margin: 15px auto 0;
+    font-size: 1.5em;
+    font-weight: bold;
+  }
+
+  .dmTableOdd {
+    background-color: #f8f7f9;
+  }
+
+  .dmTableEven {
+    /*background-color: #d2d2d2;*/
+    background-color: #ffffff;
+  }
+
+  .dmInvisible {
+    visibility: hidden;
+  }
+
+  .dm-column-list {
+    width: 200px;
+    height: auto;
+    margin: 0 10px;
+    display: inline-block;
+    position: relative;
+  }
+
+  .dm-column-list > header {
+    width: 100%;
+    padding: 5px 0;
+    text-align: center;
+    box-shadow: 0 0 2px rgba(0, 0, 0, 0.5);
+  }
+
+  .dm-column-list > ul {
+    list-style: none;
+    height: 300px;
+    width: 100%;
+    overflow: auto;
+    z-index: 100;
+    position: absolute;
+    background: #ffffff;
+    box-shadow: 0 0px 1px 1px rgba(111, 111, 111, 0.5);
+  }
+
+  .dm-column-list > ul > li {
+    padding: 5px 0;
+    width: 100%;
+    box-shadow: 0px 1px 2px rgba(105, 105, 105, 0.5);
+  }
+
+  .dm-column-list > ul > li > .dm-column-actions-check-wrapper {
+    margin: 0 10px;
+  }
+
+  .underlineText {
+    text-decoration: underline;
+    color: #ec034a;
+    cursor: pointer;
+    font-weight: bold;
+  }
+
+  .selectAllCheckBoxIcon {
+    font-size: 20px;
+    vertical-align: text-bottom;
+    cursor: pointer;
+    position: relative;
+    left: 8px;
+  }
+
+  @media screen and (max-width: 900px) {
+    .dmSearchContainer {
+      width: 40%;
+    }
+  }
+  @media only screen and (max-width: 768px){
+  .downl{
+    display: none;
+  }
+  }
+  /*Advanced search starts here*/
+  .advanced-search-container,
+  .advanced-search {
+    overflow: hidden;
+  }
+
+  .advanced-search-container {
+    /* border: 1px solid; */
+    /*position: relative;*/
+    /* top: -14px; */
+    width: 449px;
+    /*background: #ffffff;*/
+    vertical-align: middle;
+    /* position: absolute; */
+    /* top: 13px; */
+    z-index: 9;
+    border-radius: 9px;
+    /*margin-left: -8px;*/
+  }
+
+  .search-text-input {
+    border-top: thin solid #e5e5e5 !important;
+    border-right: thin solid #e5e5e5 !important;
+    border-bottom: 0 !important;
+    border-left: thin solid #e5e5e5 !important;
+    box-shadow: 0px 1px 1px 1px #e5e5e5 !important;
+    float: left;
+    height: 17px !important;
+    margin: 0 0 0 0 !important;
+    outline: 0;
+    padding: 0.4em 0 0.4em 0.6em;
+    width: 400px !important;
+  }
+
+  .button-holder {
+    background-color: #333333;
+    border-top: thin solid #e5e5e5;
+    box-shadow: 1px 1px 1px 1px #e5e5e5;
+    cursor: pointer;
+    float: left;
+    height: 33px;
+    margin: -2px 0 0 0;
+    text-align: center;
+    width: 37px;
+  }
+
+  .button-holder img {
+    margin: 4px;
+    width: 16px;
+    padding: 4px 0 0 0px;
+  }
+
+  .advanced-search > input[type="text"] {
+    width: 400px;
+    height: 24px;
+    margin: 12px 0 !important;
+    border: 1px solid;
+    padding-left: 12px;
+  }
+
+  .search-input {
+    overflow: hidden;
+  }
+
+  .form-container-smartsearch {
+    overflow: hidden;
+    margin-top: 0;
+    color: #b2b2b2;
+    font-family: "Nunito-Light";
+    display: none;
+  }
+
+  .advanced-input-label > label {
+    float: left;
+    margin-top: 6px;
+  }
+
+  .advanced-input-label > input,
+  .advanced-input-label > select {
+    height: 24px !important;
+    width: 60%;
+    float: right;
+    margin-right: 12%;
+    border-bottom: solid 1px #b2b2b2;
+  }
+
+  .advanced-input-label > select {
+    border: solid 1px #b2b2b2;
+  }
+
+  .advanced-input-label {
+    overflow: hidden;
+    width: 90%;
+    margin: 15px auto;
+  }
+
+  .advanced-input-label-select {
+    margin-top: 20px;
+  }
+
+  .resetNshowresult > .reset {
+    width: 40%;
+    float: left;
+  }
+
+  .resetNshowresult > .showresult {
+    width: 60%;
+    float: left;
+  }
+
+  .resetNshowresult > .reset > button {
+    border-right: 1px solid #ffffff;
+  }
+
+  .resetNshowresult > .reset > button {
+    background-color: #cfcfce;
+    width: 100%;
+    border-radius: 5px !important;
+    padding: 12px;
+    /* margin: 0% 0% 1% 49%; */
+    /*color: #a1a1a1;*/
+  }
+
+  .resetNshowresult > .showresult > button {
+    width: 100%;
+    /* margin: 0% 1% 1% 22%; */
+    border-radius: 6px !important;
+    padding: 12px;
+    /*color: #a1a1a1;*/
+  }
+
+  .down-arrow {
+    width: 34px;
+    position: relative;
+    left: -32px;
+    top: -27px;
+    height: auto;
+  }
+
+  .dt_source {
+    display: block;
+    width: 100%;
+    height: 100%;
+  }
+
+  .dt_container {
+    display: block;
+    height: 100%;
+    width: 100%;
+  }
+
+  .btn_div {
+    padding-left: 0.7em;
+  }
+
+  .bulk_accept {
+    padding-top: 0.5em;
+    padding-bottom: 0.5em;
+    padding-left: 1em;
+    padding-right: 1em;
+  }
+</style>
+<nodata ng-if="!datasource.length"> No Data found! </nodata>
+<!---webkit-user-select: none; 
+     -moz-user-select: none;  
+     -ms-user-select: none;  
+     user-select: none;-->
+<div
+  ng-if="datasource.length"
+  class="dt_source"
+  ng-switch
+  on="tabSeperatorKey?true:false"
+>
+  <!--    {{selectedRows}}</br>
+        {{}}-->
+  <div ng-switch-when="true">
+    <dmTableTabsContainer>
+      <ul>
+        <li
+          ng-repeat="tab in tableTabs"
+          ng-click="showTab(tab)"
+          ng-style="tabShown.currentTab.toLowerCase() == tab.toLowerCase()?{'border-bottom':'2px solid #' + themeColor}:''"
+        >
+          {{tab}}
+        </li>
+      </ul>
+    </dmTableTabsContainer>
+    <dmTables ng-repeat="tab in tableTabs" ng-show="showTabTable(tab)">
+      <dmTableOptionsContainer class="dmTableOptionHeader">
+        <div class="dmPageItemsContainer" ng-if="showingpagination">
+          <label>
+            <input
+              type="number"
+              ng-model="itemsPerPage.itemShown"
+              placeholder="10"
+              ng-blur="perPageItemShown()"
+              ng-hide="true"
+            />
+          </label>
+          <span>Showing {{showleadcount}} out of {{datacount}}</span>
+        </div>
+        <div class="dmDownloadOptnsContainer" ng-if="downloadBtn">
+          <a
+            ng-click="downLoadTableData($event, 'excel')"
+            ng-style="{'border':'1px solid #'+csvExcelButtonColor,'color':'#'+themeColor,'background-color':'#'+csvExcelButtonColor}"
+          >
+            <label>&#x2794;&#x2759;</label> Excel</a
+          >
+          <a
+            ng-click="downLoadTableData($event, 'csv')"
+            ng-style="{'border':'1px solid #'+csvExcelButtonColor,'color':'#'+themeColor,'background-color':'#'+csvExcelButtonColor}"
+          >
+            <label>&#x2794;&#x2759;</label> CSV</a
+          >
+          <a
+            ng-click="refreshTable(refreshTableCtrl['method'])"
+            ng-style="{'border':'1px solid #'+themeColor,'color':'#'+themeColor}"
+            ng-show="isActionVisible(refreshTableCtrl.showOnTab)"
+            >{{refreshTableCtrl['title']}}</a
+          >
+        </div>
+        <div class="dmSearchContainer">
+          <input
+            type="text"
+            ng-model="searchTableData.value"
+            ng-if="searchable"
+            placeholder="Search"
+          />
+        </div>
+      </dmTableOptionsContainer>
+      <dmTableContainer>
+        <dmTableBody>
+          <table>
+            <thead
+              ng-style="{'background':'#'+themeColor,'color':getColor(headerColor)}"
+            >
+              <tr>
+                <th
+                  ng-repeat="column in columns track by $index"
+                  ng-if="seperatorAsCol.toLowerCase() == 'true' || column.columnName != tabSep"
+                >
+                  <label ng-if="column.columnType !== 'checkbox'">
+                    {{column.columnName}}
+                  </label>
+                  <label ng-if="column.columnType === 'checkbox'">
+                    <label for="hcheck_{{$index}}">
+                      <i
+                        class="ion ion-ios-checkmark-outline"
+                        ng-if="!isAllRowSelected[tab][pageNumber.currentPage]"
+                      ></i>
+                      <i
+                        class="ion ion-ios-checkmark"
+                        ng-if="!!isAllRowSelected[tab][pageNumber.currentPage]"
+                      ></i>
+                    </label>
+                    <input
+                      type="checkbox"
+                      id="hcheck_{{$index}}"
+                      ng-model="isAllRowSelected[tab][pageNumber.currentPage]"
+                      ng-change="selectAll()"
+                    />
+                  </label>
+                  <label
+                    class="dmSortingArrows"
+                    ng-if="['checkbox', 'button'].indexOf(column.columnType) < 0"
+                  >
+                    <span
+                      ng-click="setSort(column.columnId, true)"
+                      ng-class="{'disableSort':column.columnId == sortingObj.sortingColumn && sortingObj.sortingType}"
+                    >
+                      &#x8b;
+                    </span>
+                    <span
+                      ng-click="setSort(column.columnId, false)"
+                      ng-class="{'disableSort':column.columnId == sortingObj.sortingColumn && !sortingObj.sortingType}"
+                    >
+                      &#x9b;
+                    </span>
+                  </label>
+                </th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr
+                ng-repeat="tableRow in shownTableData| orderBy:sortingObj.sortingColumn:sortingObj.sortingType track by $index"
+                ng-class-odd="'dmTableOdd'"
+                ng-class-even="'dmTableEven'"
+                ng-dblclick="editRow(tableRow[editableProp].toLowerCase(), $index)"
+                ng-init="initEditableFlag($index)"
+              >
+                <td
+                  ng-repeat="column in columns"
+                  ng-if="seperatorAsCol.toLowerCase() == 'true' || column.columnName != tabSep"
+                  ng-show="showUnEditableField(tabShown.currentTab.toLowerCase(), $parent.$parent.$index)"
+                  title="{{tableRow[cellTitle][column.columnId]}}"
+                  ng-style='tableRow[cellTitle][column.columnId]?tableRow[cellTitle][column.columnId]!=""?{background:"rgba(255,0,0,0.7)"}:{}:{}'
+                >
+                  <label
+                    ng-if="column.columnType == 'text'"
+                    ng-bind-html="tableRow[column.columnId] | highlightSearch:searchTableData.value"
+                    ng-click="tableCellAction(tableRow, column.columnId)"
+                  >
+                    --{{column.columnId}}---- {{tableRow[column.columnId]}}
+                  </label>
+                  <label ng-if="column.columnType == 'button'">
+                    <button
+                      ng-if="getValueScrutiny()"
+                      ng-click="columnActionClick(column.columnName, tableRow)"
+                    >
+                      <!-- {{column.columnName}} -->Scrutiny
+                    </button>
+                    <button
+                      ng-if="getValueExplore()"
+                      ng-click="columnActionClick(column.columnName, tableRow)"
+                    >
+                      <!-- {{column.columnName}} -->Explore
+                    </button>
+                  </label>
+                  <label ng-if="column.columnType == 'checkbox'">
+                    <input
+                      type="checkbox"
+                      ng-model="selectedRows[tabShown.currentTab][pageNumber.currentPage][tableRow[dataUniqueKey.toLowerCase()]]"
+                      ng-change="chkForAllSelected()"
+                    />
+                  </label>
+                </td>
+                <td
+                  ng-repeat="column in columns"
+                  ng-if="seperatorAsCol.toLowerCase() == 'true' || column.columnName != tabSep"
+                  ng-show="showEditableField(tabShown.currentTab.toLowerCase(), $parent.$parent.$index)"
+                >
+                  <label ng-if="column.columnType == 'text'">
+                    <input
+                      ng-model="tableRow[column.columnId]"
+                      ng-value="tableRow[column.columnId]"
+                      type="text"
+                    />
+                  </label>
+                  <label ng-if="column.columnType == 'button'">
+                    <button
+                      ng-click="columnActionClick(column.columnName, tableRow)"
+                    >
+                      <!-- {{column.columnName}} -->Scrutiny
+                    </button>
+                  </label>
+                  <label ng-if="column.columnType == 'checkbox'">
+                    <input
+                      type="checkbox"
+                      ng-model="selectedRows[tabShown.currentTab][pageNumber.currentPage][tableRow[dataUniqueKey.toLowerCase()]]"
+                      ng-change="chkForAllSelected()"
+                    />
+                  </label>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </dmTableBody>
+      </dmTableContainer>
+      <nodata ng-if="shownTableData.length <= 0"> Records not found </nodata>
+      <dmTableOptionsContainer>
+        <dmTableDataPagination ng-class="{'dmInvisible':totalPages <= 1}">
+          <ul>
+            <li ng-click="changePage(1)">&#x3c;&#x3c;</li>
+            <li ng-click="changePage(pageNumber.currentPage - 1)">&#x3c;</li>
+            <li>
+              <label
+                ng-click="chkForPageNumberEdit()"
+                ng-if="!isPageNumberEditable"
+              >
+                {{pageNumber.currentPage}}
+              </label>
+              <input
+                type="number"
+                ng-model="pageNumber.currentPage"
+                ng-blur="chkForPageNumberEdit()"
+                ng-if="isPageNumberEditable"
+                min="0"
+                max=""
+                auto-focus
+              />
+              <label>{{"/" + totalPages}} </label>
+            </li>
+            <li ng-click="changePage(pageNumber.currentPage)">Go</li>
+            <li ng-click="changePage(pageNumber.currentPage + 1)">&#x3e;</li>
+            <li ng-click="changePage(totalPages)">&#x3e;&#x3e;</li>
+          </ul>
+        </dmTableDataPagination>
+        <dmTableDataActions>
+          <button
+            ng-repeat="dataActionBtn in returnCurrentData"
+            ng-click="returnDataClick(dataActionBtn.method)"
+            ng-show="isActionVisible(dataActionBtn.showOnTab)"
+          >
+            {{dataActionBtn.title}}
+          </button>
+          <button
+            ng-repeat="actionBtn in tableDataActions"
+            ng-click="tableActionClick(actionBtn.action_function)"
+          >
+            {{actionBtn.action_title}}
+          </button>
+        </dmTableDataActions>
+      </dmTableOptionsContainer>
+    </dmTables>
+  </div>
+  <div ng-switch-default class="dt_container">
+    <dmTables>
+      <dmTableOptionsContainer class="dmTableOptionHeader">
+        <div class="dmPageItemsContainer" ng-if="showingpagination">
+          <label>
+            <input
+              type="number"
+              ng-model="itemsPerPage.itemShown"
+              placeholder="10"
+              ng-blur="perPageItemShown()"
+              ng-hide="true"
+            />
+          </label>
+          <span>Showing {{showleadcount}} out of {{datacount}} leads</span>
+          <div class="dm-column-list" ng-if="columnObj.isColumnList">
+            <header ng-click="toggleColumnList()">Columns</header>
+            <ul ng-show="columnObj.columnListShown">
+              <li
+                ng-repeat="column in columns"
+                class="flex flex-row"
+                ng-class-odd="'dm-odd-row'"
+                ng-class-even="'dm-even-row'"
+              >
+                <div class="dm-column-actions-check-wrapper">
+                  <input
+                    type="checkbox"
+                    id="{{'column-list-' + column.columnId + '-' + $index}}"
+                    ng-model="column.columnShown"
+                    ng-disabled="columnObj.disabledColumn.indexOf(column.columnId) > - 1"
+                  />
+                </div>
+                <div class="dm-column-actions-label-wrapper">
+                  <label
+                    for="{{'column-list-' + column.columnId + '-' + $index}}"
+                  >
+                    {{column.columnName}}
+                  </label>
+                </div>
+              </li>
+            </ul>
+          </div>
+        </div>
+        <!-- <div class="dmDownloadOptnsContainer" ng-if="downloadBtn">
+                    <a ng-click="downLoadTableData($event, 'excel')" ng-style="{'border':'1px solid #'+csvExcelButtonColor,'color':'#'+csvExcelButtonColor,'background-color':'#'+themeColor}">
+                        <label>&#x2794;&#x2759;</label> Excel</a>
+                    <a ng-click="downLoadTableData($event, 'csv')" ng-style="{'border':'1px solid #'+csvExcelButtonColor,'color':'#'+csvExcelButtonColor,'background-color':'#'+themeColor}">
+                        <label>&#x2794;&#x2759;</label> CSV</a>
+                    <a ng-click="refreshTable(refreshTableCtrl['method'])" ng-style="{'border':'1px solid #'+themeColor,'color':'#'+themeColor}" ng-show='refreshTableCtrl'>{{refreshTableCtrl['title']}}</a>
+                </div> -->
+        <!-- <div class="dmSearchContainer searchField" ng-if="searchable">
+                    <input type="text" ng-model="searchTableData.value" ng-if="searchable" placeholder="Search">
+                    <i class="ion ion-ios-search"></i>
+                </div> -->
+        <!-- <div class="queuedataScrutiny" ng-if="searchable">
+                    <div class="advanced-search">
+                            <div class="search-input">
+                                <input type="text" placeholder="Search..." ng-model="searchTableData.value" class="search-text-input" ng-if="searchable">
+                                <div class="button-holder">
+                                    <img src="images/search-enabled.svg">
+                                     <img src="images/arrow_drop_down_grey_36x36.png" class="down-arrow"> 
+                                 </div>
+                            </div>
+                    </div>
+                </div> -->
+        <div class="DownloadSearch">
+          <div>
+            <div class="tooltip">
+              <img
+                src="images/group_6.svg"
+                ng-click="showSearch=true"
+                ng-hide="showSearch"
+              />
+              <span class="tooltiptext">Search</span>
+            </div>
+            <div class="localSearch" ng-show="showSearch">
+              <img
+                src="images/group_6.svg"
+                ng-click="showSearch=false;searchTableData.value='';"
+              /><input
+                type="text"
+                placeholder="Search..."
+                ng-model="searchTableData.value"
+                class="inputField"
+                ng-if="searchable"
+              />
+            </div>
+          </div>
+          <!-- <div><img src="images/path.svg"></div> -->
+        </div>
+
+        <div class="downl">
+          <div class="tooltip">
+            <img
+              src="images/group_7.svg"
+              ng-click="downLoadTableData($event,'excel')"
+            />
+            <span class="tooltiptext">Download Excel</span>
+          </div>
+        </div>
+      </dmTableOptionsContainer>
+      <dmTableContainer>
+        <div ng-show="showBulkAccept()" class="btn_div">
+          <button
+            ng-click="setprc_bulk()"
+            class="bulk_accept"
+            ng-disabled="case_array.length == 0"
+          >
+            Accept case in bulk
+          </button>
+        </div>
+        <div ng-show="showBulkAcceptSign()" class="btn_div">
+          <button
+            ng-click="SignUpload()"
+            class="bulk_accept"
+            ng-disabled="case_array.length == 0"
+          >
+            Accept case in bulk for SignUpload
+          </button>
+        </div>
+        <dmTableBody>
+          <table>
+            <thead
+              ng-style="{'background':'#'+themeColor,'color':getColor(headerColor)}"
+            >
+              <tr>
+                <th
+                  ng-repeat="column in columns track by $index"
+                  ng-show="column.columnShown"
+                >
+                  <label ng-if="column.columnType === 'check'">
+                    <input
+                      type="checkbox"
+                      id="selectAllCB"
+                      ng-model="isAllRowSelected[pageNumber.currentPage]"
+                      ng-change="selectAll()"
+                    />
+                  </label>
+                  <label
+                    ng-if="column.columnType !== 'checkbox' && column.columnType !== 'check'"
+                  >
+                    {{column.columnName}}
+                  </label>
+                  <label
+                    ng-if="column.columnType === 'checkbox'"
+                    title="Select All"
+                  >
+                    <i
+                      ng-show="!isAllRowSelected[pageNumber.currentPage]"
+                      class="ion ion-ios-checkmark-outline selectAllCheckBoxIcon"
+                    ></i>
+                    <i
+                      ng-show="isAllRowSelected[pageNumber.currentPage]"
+                      class="ion ion-ios-checkmark selectAllCheckBoxIcon"
+                    ></i>
+                    <!--<label for="selectAllCB">Select</label>-->
+                    <input
+                      type="checkbox"
+                      ng-style="(1+1) == 2 ? {'display': 'none'}:''"
+                      id="selectAllCB"
+                      ng-model="isAllRowSelected[pageNumber.currentPage]"
+                      ng-change="selectAll()"
+                    />
+                  </label>
+                  <label
+                    class="dmSortingArrows"
+                    ng-if="['checkbox', 'button'].indexOf(column.columnType) < 0"
+                    ng-show="dm-sortable"
+                  >
+                    <span
+                      ng-click="setSort(column.columnId, true)"
+                      ng-class="{'disableSort':column.columnId == sortingObj.sortingColumn && sortingObj.sortingType}"
+                    >
+                      &#x8b;
+                    </span>
+                    <span
+                      ng-click="setSort(column.columnId, false)"
+                      ng-class="{'disableSort':column.columnId == sortingObj.sortingColumn && !sortingObj.sortingType}"
+                    >
+                      &#x9b;
+                    </span>
+                  </label>
+                </th>
+              </tr>
+            </thead>
+
+            <tbody>
+              <tr
+                ng-repeat="tableRow in shownTableData| orderBy:sortingObj.sortingColumn:sortingObj.sortingType track by tableRow[dataUniqueKey]"
+                ng-class-odd="'dmTableOdd'"
+                ng-class-even="'dmTableEven'"
+              >
+                <td ng-repeat="column in columns" ng-show="column.columnShown">
+                  <label
+                    ng-if="column.columnType == 'text'"
+                    ng-click="tableCellAction(tableRow, column.columnId)"
+                    ng-class="{'underlineText':isTextUnderLine(column.columnId,tableRow[column.columnId])}"
+                  >
+                    {{tableRow[(column.columnId).toLowerCase()]|
+                    checkvaluetype}}
+                  </label>
+                  <label ng-if="column.columnType == 'button'">
+                    <button
+                      ng-if="getValueScrutiny()"
+                      ng-click="columnActionClick(column.columnName, tableRow)"
+                    >
+                      <!-- {{column.columnName}} -->Scrutiny
+                    </button>
+                    <button
+                      ng-if="getValueExplore()"
+                      ng-click="columnActionClick(column.columnName, tableRow)"
+                    >
+                      <!-- {{column.columnName}} -->Explore
+                    </button>
+                  </label>
+                  <label ng-if="column.columnType === 'check'">
+                    <input
+                      type="checkbox"
+                      ng-model="selectedRows[tableRow[dataUniqueKey]]"
+                      ng-change="chkForAllSelected(tableRow[dataUniqueKey])"
+                    />
+                  </label>
+                  <label ng-if="column.columnType == 'checkbox'">
+                    <label for="check_{{$parent.$parent.$index}}">
+                      <i
+                        class="ion ion-ios-checkmark-outline"
+                        ng-if="!selectedRows[pageNumber.currentPage][tableRow[dataUniqueKey]]"
+                      ></i>
+                      <i
+                        class="ion ion-ios-checkmark"
+                        ng-style="(1+1) == 2 ? {'color':'#ed2e36'} : ''"
+                        ng-if="!!selectedRows[pageNumber.currentPage][tableRow[dataUniqueKey]]"
+                      ></i>
+                    </label>
+                    <input
+                      type="checkbox"
+                      id="check_{{$parent.$parent.$index}}"
+                      ng-model="selectedRows[pageNumber.currentPage][tableRow[dataUniqueKey]]"
+                      ng-change="chkForAllSelected()"
+                    />
+                  </label>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </dmTableBody>
+      </dmTableContainer>
+      <nodata ng-if="shownTableData.length <= 0"> Records not found </nodata>
+      <dmTableOptionsContainer>
+        <dmTableDataPagination
+          class="col-md-12"
+          ng-class="{'dmInvisible':totalPages <= 1}"
+        >
+          <div class="pagination">
+            <span>Showing {{showleadcount}} out of {{datacount}} leads</span>
+            <img
+              src="images/group_2.svg"
+              ng-click="changePage(pageNumber.currentPage - 1)"
+            />
+            <img
+              src="images/group.svg"
+              ng-click="changePage(pageNumber.currentPage + 1)"
+            />
+          </div>
+          <!-- <ul>
+                        <li ng-click="changePage(1)">
+                            &#x3c;&#x3c;
+                        </li>
+                        <li ng-click="changePage(pageNumber.currentPage - 1)">
+                            &#x3c;
+                        </li>
+                        <li>
+                            <label ng-click="chkForPageNumberEdit()" ng-if="!isPageNumberEditable">
+                                {{pageNumber.currentPage}}
+                            </label>
+                            <input type="number" ng-model="pageNumber.currentPage" ng-blur="chkForPageNumberEdit()" ng-if="isPageNumberEditable" min="0" max="" auto-focus>
+                            <label>{{"/" + totalPages}}
+                            </label>
+                        </li>
+                        <li ng-click="changePage(pageNumber.currentPage)">
+                            Go
+                        </li>
+                        <li ng-click="changePage(pageNumber.currentPage + 1)">
+                            &#x3e;
+                        </li>
+                        <li ng-click="changePage(totalPages)">
+                            &#x3e;&#x3e;
+                        </li>
+                    </ul> -->
+        </dmTableDataPagination>
+        <dmTableDataActions class="col-md-12">
+          <div class="col-md-4 col-md-offset-4">
+            <button
+              class="kButton"
+              ng-repeat="dataActionBtn in returnCurrentData"
+              ng-click="returnDataClick(dataActionBtn.method)"
+            >
+              <span>{{dataActionBtn.title}}</span>
+            </button>
+            <button
+              class="kButton"
+              ng-repeat="actionBtn in tableDataActions"
+              ng-if="isTableActionVisible(actionBtn)"
+              ng-click="tableActionClick(actionBtn.action_function)"
+            >
+              <span>{{actionBtn.action_title}}</span>
+            </button>
+          </div>
+        </dmTableDataActions>
+      </dmTableOptionsContainer>
+    </dmTables>
+  </div>
+</div>

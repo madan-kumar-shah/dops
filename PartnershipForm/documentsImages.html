@@ -1,0 +1,51 @@
+<div ng-app="Images" ng-controller="myCtrl1">
+    <loader
+      ng-show="isLoading"
+      ng-include
+      src="'common/loader/loader.html'"
+    ></loader>
+    <cardContainerOverlay class="cardContainerOverlay-home">
+      <div class="searchPopup display_flex_center">
+        <img
+          src="images/previous.png"
+          class="searchPop_img"
+          ng-click="PREVIOUS_IMAGE()"
+        />
+        <div
+          class="search_container_popup_forImage"
+          ng-init="SET_IMAGE_WIDTH_HEIGTH(img_Rotate);"
+        >
+          <label class="searchPop_label"
+            >{{selected_IMAGE.doc_des}} {{selected_IMAGE.seq_set}}</label
+          >
+          <span ng-if="imageDetail.LATITUDE || imageDetail.LONGITUDE"
+            ><label class="lattitude_label"
+              >Latitude : {{imageDetail.LATITUDE}}
+            </label>
+            <label class="longitude_label"
+              >Longitude : {{imageDetail.LONGITUDE}}
+            </label>
+          </span>
+  
+          <img id="container" class="img_container" src="{{img_Rotate}}" />
+        </div>
+        <img
+          src="images/forward.png"
+          class="forward_image"
+          ng-click="NEXT_IMAGE(doc);"
+        />
+        <!-- <img src="images/close_ICON.png" ng-click="hideExpandImage()"> -->
+        <span class="zoom_div_container">
+          <img class="zoomout" src="images/minus.png" ng-click="zoomOUT()" />
+          <img class="zoomin" src="images/plus.png" ng-click="zoomIn()" />
+        </span>
+        <span class="zoom_div_container2">
+          <img
+            src="images/rotate.png"
+            class="zoom_div2_image"
+            ng-click="rotate();"
+        /></span>
+      </div>
+    </cardContainerOverlay>
+  </div>
+  

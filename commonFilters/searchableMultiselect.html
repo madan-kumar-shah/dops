@@ -1,0 +1,275 @@
+<!DOCTYPE html>
+<style>
+  .tooltip.top.fade {
+    display: none !important;
+  }
+
+  a.btn-default {
+    color: #333;
+    background-color: #fff;
+    border-color: #ccc;
+  }
+
+  a.btn-default {
+    color: #333;
+    background-color: #fff;
+    border-color: #ccc;
+  }
+
+  a.btn {
+    display: inline-block;
+    padding: 6px 12px;
+    margin-bottom: 0;
+    font-size: 14px;
+    font-weight: 400;
+    line-height: 1.42857143;
+    text-align: center;
+    white-space: nowrap;
+    vertical-align: middle;
+    -ms-touch-action: manipulation;
+    touch-action: manipulation;
+    cursor: pointer;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    background-image: none;
+    border: 1px solid transparent;
+    border-radius: 4px;
+  }
+
+  a.btn-default:hover {
+    color: #333;
+    background-color: #e6e6e6;
+    border-color: #adadad;
+  }
+
+  a.btn:hover {
+    color: #333;
+    text-decoration: none;
+  }
+
+  a:active,
+  a:hover {
+    outline: 0;
+  }
+
+  .btn:active:focus,
+  .btn:focus {
+    outline: thin dotted;
+    outline: 5px auto -webkit-focus-ring-color;
+    outline-offset: -2px;
+  }
+
+  .caret {
+    display: inline-block;
+    width: 0;
+    height: 0;
+    margin-left: 2px;
+    vertical-align: middle;
+    border-top: 4px dashed;
+    border-right: 4px solid transparent;
+    border-left: 4px solid transparent;
+  }
+
+  .btn .caret {
+    margin-left: 0;
+  }
+
+  .open > .dropdown-menu {
+    display: block;
+  }
+
+  .form-control {
+    display: block;
+    width: 88%;
+    /*Nicky*/
+    height: 15px;
+    margin-left: 6px;
+    /*height: 87px;*/
+    padding: 6px 12px;
+    font-size: 14px;
+    line-height: 1.42857143;
+    color: #555;
+    background-color: #fff;
+    background-image: none;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    -webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
+    box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
+    -webkit-transition: border-color ease-in-out 0.15s,
+      -webkit-box-shadow ease-in-out 0.15s;
+    -o-transition: border-color ease-in-out 0.15s, box-shadow ease-in-out 0.15s;
+    transition: border-color ease-in-out 0.15s, box-shadow ease-in-out 0.15s;
+  }
+
+  .dropdown-menu {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    height: 90px;
+    z-index: 1000;
+    display: none;
+    float: left;
+    width: 322px;
+    padding: 5px 0;
+    margin: 2px 0 0;
+    font-size: 14px;
+    text-align: left;
+    list-style: none;
+    background-color: #fff;
+    -webkit-background-clip: padding-box;
+    background-clip: padding-box;
+    border: 1px solid #ccc;
+    border: 1px solid rgba(0, 0, 0, 0.15);
+    border-radius: 4px;
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.175);
+    -webkit-box-shadow: 0 6px 12px rgba(0, 0, 0, 0.175);
+  }
+
+  ul.dropdown-menu-form > li {
+    display: list-item;
+    text-align: -webkit-match-parent;
+  }
+  .dropdown-ul {
+    height: 66px;
+    overflow-y: auto;
+  }
+  .dropdown-ul > li {
+    margin-right: 5px;
+    margin-left: 8px;
+  }
+  ul.dropdown-menu-form > li > label {
+    cursor: pointer;
+  }
+
+  label.checkbox {
+    display: inline-block;
+    max-width: 100%;
+    margin-bottom: 5px;
+    font-weight: 700;
+  }
+
+  label.checkbox,
+  .radio {
+    position: relative;
+    display: block;
+    margin-top: 10px;
+    margin-bottom: 10px;
+  }
+
+  .glyphicon {
+    position: relative;
+    top: 1px;
+    display: inline-block;
+    font-family: "Glyphicons Halflings" !important;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 1;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  .pull-right {
+    float: right !important;
+  }
+
+  .glyphicon-remove:before {
+    content: "\e014";
+  }
+
+  .searchable-multi-select {
+    border: 1px solid #adadad;
+    border-radius: 4px;
+  }
+
+  .glyphicon.glyphicon-remove {
+    cursor: pointer;
+  }
+
+  .searchable-multi-select {
+    position: relative;
+  }
+
+  .searchable-multi-select a {
+    width: 109.2%;
+    /*Nicky*/
+    padding: 5px 7px;
+    overflow: hidden;
+  }
+
+  .searchable-multi-select a span {
+    display: block;
+    overflow: hidden;
+    margin-right: 10px;
+  }
+
+  .searchable-multi-select a .caret {
+    position: absolute;
+    right: -30px;
+    top: 50%;
+  }
+
+  ul.dropdown-menu-form {
+    padding: 6px 10px 0;
+    overflow-y: auto;
+    height: 90px;
+  }
+
+  span.limit-ellipsis {
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
+  }
+</style>
+<div
+  class="dropdown searchable-multi-select"
+  dropdown
+  on-toggle="toggled(open)"
+>
+  <a
+    class="dropdown-toggle btn btn-default"
+    data-toggle="dropdown"
+    dropdown-toggle
+    data-target="#"
+    tooltip="{{ commaDelimitedSelected() }}"
+    ng-class="{'disabled': readOnly}"
+  >
+    <span class="limit-ellipsis" ng-style="{ 'width' : width }">
+      <small
+        ng-class="{'text-muted': commaDelimitedSelected() === 'Nothing Selected'}"
+      >
+        {{ commaDelimitedSelected() }}
+      </small>
+      <b class="caret" ng-if="!readOnly && allItems.length"></b>
+    </span>
+  </a>
+  <div class="dropdown-menu dropdown-menu-form form-control">
+    <div>
+      <input
+        type="text"
+        class="form-control"
+        ng-model="searchQuery"
+        placeholder="Search"
+      />
+    </div>
+    <ul ng-if="!readOnly && allItems.length" class="dropdown-ul" role="menu">
+      <li
+        ng-repeat="item in ::allItems track by $index"
+        ng-hide="searchQuery.length && item[displayAttr].toLowerCase().indexOf(searchQuery.toLowerCase()) < 0"
+      >
+        <label
+          class="checkbox clickable"
+          ng-click="updateSelectedItems(item)"
+          ng-class="{'text-success': isItemSelected(item) }"
+        >
+          {{ item[displayAttr] }}
+          <span
+            class="glyphicon glyphicon-remove pull-right clickable"
+            ng-show="isItemSelected(item)"
+          ></span>
+        </label>
+      </li>
+    </ul>
+  </div>
+</div>

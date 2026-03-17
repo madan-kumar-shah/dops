@@ -1,0 +1,375 @@
+.Container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+  margin: 0;
+}
+
+.loginContainer>loginLogo {
+  width: 80%;
+}
+
+.loginContainer {
+  /* -webkit-box-shadow: 1px 1px 20px 0px rgba(204, 194, 204, 1);
+  -moz-box-shadow: 1px 1px 20px 0px rgba(204, 194, 204, 1);
+  box-shadow: 1px 1px 20px 0px rgba(204, 194, 204, 1); */
+  display: flex;
+  justify-content: center;
+  box-shadow: 1px 1px 20px 0px rgba(204, 194, 204, 1);
+
+}
+
+.dvuImage {
+  width: 50%;
+  display: flex;
+  background-color: rgb(0, 46, 218);
+  flex-flow: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.dvuImage>div {
+  padding: 15% 0 10%;
+}
+
+.dvuImage_img {
+  margin: 2% 1% -3% 2%;
+  float: left;
+  width: 24%;
+  height: 12%;
+}
+
+.dvuImage_img2 {
+  /* margin: -6% 10% 10% 20%; */
+  align-items: center;
+}
+
+.loginLogo {
+  text-align: center;
+  /* padding: 9% 6%; */
+}
+
+.login_azure_cred {
+  /* float: right; */
+  cursor: pointer;
+  /* text-decoration: underline; */
+  color:rgb(0, 46, 218);
+}
+.form-section{
+  margin-top: 30px;
+}
+
+.loginLogo img {
+  width: 166px;
+  height: 94px;
+  margin: 0% 0% 0% 0%;
+}
+
+.loginLogo>loginLogo {
+  margin-right: auto;
+  margin-left: auto;
+  width: 80%;
+}
+
+.loginSection {
+  background-color: white;
+  width: 50%;
+  justify-content: center;
+  padding: 20px;
+  position: relative;
+  display:flex;
+  flex-flow: column;
+  justify-content: center;
+}
+
+.AU-logo {
+  padding: 10% 10% 5%;
+}
+
+.Username {
+  font-family: Raleway;
+
+  font-size: 14px;
+
+  text-align: left;
+
+  color: #0560a6;
+}
+
+.loginForm>p {
+  margin: 0px 160px 30px 0px;
+}
+
+
+.loginForm h1 {
+  font-size: 2em;
+  text-align: center;
+  color: #a9a9a9;
+}
+
+.loginForm .loginFields {
+  margin: 5% 0;
+  /* padding: 0 12%; */
+  width: 100%;
+  margin: 0 auto;
+  text-align: center;
+}
+
+.loginFields>input {
+  /*Nicky*/
+  /* border-color: #f37029; */
+  border-width: 1px;
+  width: 90%;
+  height: 40px;
+  border: 0;
+  outline: 0;
+  padding: 0px 4px;
+  background: transparent;
+  text-transform: uppercase;
+  border-bottom: 1px solid gray;
+  text-align: bottom;
+  color: #000000;
+}
+
+.loginBtn {
+  margin: 10% 0;
+  margin-top: 25px !important;
+}
+
+.loginBtn button {
+  width: 65%;
+  outline: none;
+  height: 50px;
+  font-size: 16px;
+  border: none;
+  border-radius: 8px;
+  background-color: rgb(0, 46, 218) !important;
+  color: white;
+  font-weight: 900;
+}
+
+.Forgot-Password {
+  width: 129px;
+  height: 16px;
+  font-family: Raleway;
+  font-size: 14px;
+  font-weight: 500;
+  font-style: normal;
+  font-stretch: normal;
+  line-height: normal;
+  letter-spacing: 0.7px;
+  text-align: center;
+  color: #671773;
+}
+
+input::-webkit-input-placeholder:focus {
+  transform: translateY(30);
+}
+
+/*Floating label starts here*/
+.floating-label {
+  position: relative;
+  margin-bottom: 20px;
+}
+
+.floating-input,
+.floating-select {
+  font-size: 14px;
+  padding: 4px 4px;
+  display: block;
+  width: 100%;
+  height: 30px;
+  background-color: transparent;
+  border: none;
+  border-bottom: 1px solid #757575;
+}
+
+.floating-input:focus,
+.floating-select:focus {
+  outline: none;
+  border-bottom: 2px solid #0560a6;
+}
+
+.label-float {
+  color: #005192;
+  font-size: 14px;
+  font-weight: normal;
+  position: absolute;
+  pointer-events: none;
+  left: 1px;
+  top: -20px;
+  transition: 0.2s ease all;
+  -moz-transition: 0.2s ease all;
+  -webkit-transition: 0.2s ease all;
+}
+
+/* .floating-input:focus ~ label, .floating-input:not(:placeholder-shown) ~ label {
+    top: -25px;
+    font-size: 12px;
+    color: #0560a6;
+    left: 3px;
+} */
+
+.floating-select:focus~label,
+.floating-select:not([value=""]):valid~label {
+  top: -18px;
+  font-size: 14px;
+  color: #5264ae;
+}
+
+.floating-input:focus~.bar:before,
+.floating-input:focus~.bar:after,
+.floating-select:focus~.bar:before,
+.floating-select:focus~.bar:after {
+  width: 50%;
+}
+
+.floating-textarea {
+  min-height: 30px;
+  max-height: 260px;
+  overflow: hidden;
+  overflow-x: hidden;
+}
+
+.highlight {
+  position: absolute;
+  height: 50%;
+  width: 100%;
+  top: 108%;
+  left: -79px;
+  pointer-events: none;
+  /* opacity: 0.5; */
+  color: red;
+}
+
+/* .floating-input:focus ~ .highlight , .floating-select:focus ~ .highlight {
+  -webkit-animation:inputHighlighter 0.3s ease;
+  -moz-animation:inputHighlighter 0.3s ease;
+  animation:inputHighlighter 0.3s ease;
+} */
+@-webkit-keyframes inputHighlighter {
+  from {
+    background: #5264ae;
+  }
+
+  to {
+    width: 0;
+    background: transparent;
+  }
+}
+
+@-moz-keyframes inputHighlighter {
+  from {
+    background: #5264ae;
+  }
+
+  to {
+    width: 0;
+    background: transparent;
+  }
+}
+
+@keyframes inputHighlighter {
+  from {
+    background: #5264ae;
+  }
+
+  to {
+    width: 0;
+    background: transparent;
+  }
+}
+
+.floating-credit {
+  position: fixed;
+  bottom: 10px;
+  right: 10px;
+  color: #aaa;
+  font-size: 13px;
+}
+
+.floating-credit a {
+  text-decoration: none;
+  color: #000000;
+  font-weight: bold;
+}
+
+.floating-credit a:hover {
+  border-bottom: 1px dotted #f8f8f8;
+}
+
+.floating-heading {
+  position: fixed;
+  color: #aaa;
+  font-size: 20px;
+}
+
+input:-webkit-autofill {
+  -webkit-box-shadow: 0 0 0 30px white inset;
+}
+
+/*Floating label ends here*/
+.floating-password-div {
+  margin-top: 60px !important;
+}
+
+.note {
+  color: white;
+  text-align: center;
+  bottom: 0;
+  padding: 20px 0;
+}
+
+.note1 {
+  color: #a9a9a9;
+  text-align: center;
+  padding:40px 0 0 0;
+}
+
+p {
+  margin: 0 !important;
+}
+.form-section{
+  width:100%;
+}
+
+.back-bg{
+  /* background:url('../images/image\ 8.png') no-repeat; */
+  background-size: cover;
+  height:100%;
+}
+.logo-section{
+  display: none;
+}
+@media only screen and (max-width: 767px) {
+  .logo-section{
+    display: block;
+    background: #002eda;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 16px;
+        border-radius: 16px;
+        margin-bottom: 24px;
+  }
+  .logo-section img{
+    height:auto;
+    width:50%;
+  }
+  .dvuImage {
+    display: none
+  }
+  .Container{
+    width:100%;
+  }
+  .loginContainer{
+    width:100%;
+    margin:16px;
+  }
+  .loginSection{
+    width:100%;
+    border-radius:8px;
+    box-shadow: 1px 1px 10px 0px rgba(0,0,0,1);
+  }
+}
