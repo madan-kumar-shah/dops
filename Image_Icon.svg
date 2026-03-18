@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="74px" height="74px" viewBox="0 0 74 74" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 52.2 (67145) - http://www.bohemiancoding.com/sketch -->
+    <title>Image_Icon</title>
+    <desc>Created with Sketch.</desc>
+    <defs>
+        <rect id="path-1" x="0" y="0" width="74" height="74"></rect>
+        <path d="M15.1162791,1.15463195e-14 L21.3659765,1.15463195e-14 C23.2764964,1.15463195e-14 25,1.72350356 25,3.63402348 L25,9.88372093 L15.1162791,1.15463195e-14 Z" id="path-3"></path>
+        <filter x="-40.5%" y="-60.7%" width="180.9%" height="180.9%" filterUnits="objectBoundingBox" id="filter-4">
+            <feOffset dx="0" dy="-2" in="SourceAlpha" result="shadowOffsetOuter1"></feOffset>
+            <feGaussianBlur stdDeviation="1" in="shadowOffsetOuter1" result="shadowBlurOuter1"></feGaussianBlur>
+            <feComposite in="shadowBlurOuter1" in2="SourceAlpha" operator="out" result="shadowBlurOuter1"></feComposite>
+            <feColorMatrix values="0 0 0 0 0   0 0 0 0 0   0 0 0 0 0  0 0 0 0.0909637238 0" type="matrix" in="shadowBlurOuter1"></feColorMatrix>
+        </filter>
+    </defs>
+    <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="AU-DVU-Portal-Copy" transform="translate(-1147.000000, -239.000000)">
+            <g id="Image_Icon" transform="translate(1147.000000, 239.000000)">
+                <g id="Screen-Shot-2017-06-27-at-11.05.23-AM-Copy-3">
+                    <mask id="mask-2" fill="white">
+                        <use xlink:href="#path-1"></use>
+                    </mask>
+                    <use id="Rectangle-3" fill="#EBEBEB" xlink:href="#path-1"></use>
+                </g>
+                <g id="files-icon-picture" transform="translate(25.000000, 22.000000)">
+                    <g id="PDF">
+                        <g id="Group-9">
+                            <path d="M15,3.55271368e-15 L25,9.88372093 L25,26.1918605 C25,28.1023804 23.4329966,29.6511628 21.5,29.6511628 L3.5,29.6511628 C1.56700338,29.6511628 0,28.1023804 0,26.1918605 L0,3.45930233 C0,1.54878241 1.56700338,3.55271368e-15 3.5,3.55271368e-15 L15,3.55271368e-15 Z" id="Combined-Shape" fill="#FFFFFF"></path>
+                            <g id="Path" transform="translate(20.058140, 4.941860) scale(-1, -1) translate(-20.058140, -4.941860) ">
+                                <use fill="black" fill-opacity="1" filter="url(#filter-4)" xlink:href="#path-3"></use>
+                                <use fill-opacity="0.4" fill="#FFFFFF" fill-rule="evenodd" xlink:href="#path-3"></use>
+                            </g>
+                        </g>
+                    </g>
+                    <g id="图片-(1)" transform="translate(5.000000, 12.500000)" fill="#454ADE" fill-rule="nonzero">
+                        <path d="M10.5561277,0 L0.55557102,0 C0.248725129,0 0,0.2487808 0,0.555668444 L0,9.44477693 C0,9.75149756 0.248725129,10 0.55557102,10 L10.5561138,10 C10.8629736,10 11.1117127,9.75149756 11.1117127,9.44477693 L11.1117127,0.555682362 C11.1117127,0.2487808 10.8629597,0 10.5561138,0 L10.5561277,0 Z M9.44488827,8.33344004 L1.66678265,8.33344004 L1.66678265,5.55580762 L3.33350963,3.88895539 L6.11147607,6.66688007 L7.77814737,4.99991649 L9.44488827,6.66688007 L9.44488827,8.33344004 Z M8.33373231,3.88898322 C7.72004053,3.88898322 7.22263202,3.39158863 7.22263202,2.77792469 C7.22263202,2.16402414 7.72005445,1.66681048 8.33373231,1.66681048 C8.94741017,1.66681048 9.44488827,2.16403806 9.44488827,2.77792469 C9.44488827,3.39158863 8.94742409,3.88898322 8.33373231,3.88898322 Z" id="Shape"></path>
+                    </g>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>
